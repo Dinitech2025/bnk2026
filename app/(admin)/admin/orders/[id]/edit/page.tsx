@@ -161,6 +161,7 @@ async function getOrder(id: string): Promise<OrderWithDetails> {
       totalPrice: Number(item.totalPrice),
       discountValue: item.discountValue ? Number(item.discountValue) : null,
       discountAmount: item.discountAmount ? Number(item.discountAmount) : null,
+      metadata: item.metadata, // Préserver les métadonnées
     })),
     payments: orderData.payments.map((payment: any) => ({
       ...payment,
@@ -382,6 +383,18 @@ export default async function OrderPage({ params }: PageProps) {
                 if (item.product) itemName = item.product.name;
                 if (item.service) itemName = item.service.name;
                 if (item.offer) itemName = item.offer.name;
+                
+                // Vérifier les métadonnées pour les produits importés
+                if (itemName === 'Inconnu' && item.metadata) {
+                  try {
+                    const metadata = typeof item.metadata === 'string' ? JSON.parse(item.metadata) : item.metadata;
+                    if (metadata?.name) {
+                      itemName = metadata.name;
+                    }
+                  } catch (e) {
+                    // Ignorer les erreurs de parsing
+                  }
+                }
 
                 const hasDiscount = (item as any).discountAmount && Number((item as any).discountAmount) > 0;
                 const originalPrice = Number(item.unitPrice) * item.quantity;

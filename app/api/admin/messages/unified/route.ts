@@ -149,12 +149,17 @@ export async function GET(request: NextRequest) {
       const clientKey = message.clientEmail || message.fromUser?.email || message.fromUserId
       const clientName = message.clientName || message.fromUser?.name || message.fromUser?.email || 'Client'
       const clientEmail = message.clientEmail || message.fromUser?.email || ''
+      // Identifier l'ID de l'utilisateur client (celui qui n'est pas admin/staff)
+      const clientUserId = !message.fromUser || (message.fromUser.role !== 'ADMIN' && message.fromUser.role !== 'STAFF')
+        ? message.fromUserId
+        : message.toUserId
 
       if (!messageConversationsMap.has(clientKey)) {
         messageConversationsMap.set(clientKey, {
           id: `message-${clientKey}`,
           clientName,
           clientEmail,
+          clientUserId, // Ajouter l'ID de l'utilisateur client
           messages: [],
           lastMessage: null,
           lastMessageAt: message.sentAt,
@@ -273,7 +278,8 @@ export async function GET(request: NextRequest) {
           source: 'QUOTE_MESSAGE',
           isAdminReply: isAdminMessage,
           isSystemMessage: msg.isSystemMessage || false,
-          sender: msg.sender || quote.user
+          sender: msg.sender || quote.user,
+          proposedPrice: msg.proposedPrice ? Number(msg.proposedPrice) : null
         })
       })
 
@@ -316,6 +322,8 @@ export async function GET(request: NextRequest) {
             finalPrice: quote.finalPrice ? Number(quote.finalPrice) : null,
             budget: quote.budget ? Number(quote.budget) : null,
             description: quote.description,
+            createdAt: quote.createdAt.toISOString(),
+            updatedAt: quote.updatedAt.toISOString(),
             user: {
               id: quote.user.id,
               name: quote.user.name,
@@ -357,6 +365,7 @@ export async function GET(request: NextRequest) {
           clientEmail: otherParticipantEmail,
           otherParticipantId: otherParticipant?.id,
           otherParticipantRole: otherParticipant?.role,
+          clientUserId: otherParticipant?.id, // Ajouter pour cohérence
           messages: [],
           lastMessage: null,
           lastMessageAt: message.sentAt,

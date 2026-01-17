@@ -116,3 +116,4 @@ Si cela ne fonctionne pas, le problème est plus profond dans l'authentification
 **Action** : 🧪 Test manuel recommandé avec identifiants directs
 
 
+

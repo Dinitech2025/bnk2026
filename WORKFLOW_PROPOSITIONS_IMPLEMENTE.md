@@ -283,3 +283,4 @@ Votre système BoutikNaka dispose maintenant d'un **workflow complet de validati
 **Avantage** : 💼 Validation obligatoire avant ajout panier
 
 
+

@@ -176,3 +176,4 @@ Votre interface produit est maintenant :
 **Miniatures** : 🖼️ 25% plus grandes (64→80px)
 
 
+

@@ -227,3 +227,4 @@ Votre page d'inventaire BoutikNaka est maintenant :
 **Résultat** : 🎊 Page d'inventaire de niveau entreprise
 
 
+

@@ -228,3 +228,4 @@ const handleChange = (value: string) => { /* logique */ };
 **Résultat** : 🎊 Console propre + performance optimisée
 
 
+

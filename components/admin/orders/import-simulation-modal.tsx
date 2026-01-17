@@ -72,16 +72,36 @@ interface CalculationResult {
     warehouse: string
   }
   costs: {
-    supplierPrice: number
-    supplierCurrency: string
-    transportCost: number
-    customsDuty: number
-    vat: number
-    handlingFee: number
-    totalCostUSD: number
-    totalCostMGA: number
-    suggestedPriceMGA: number
-    profitMargin: number
+    supplierPrice: {
+      amount: number
+      currency: string
+      amountInMGA: number
+    }
+    transport: {
+      amount: number
+      currency: string
+      amountInMGA: number
+    }
+    commission: {
+      amount: number
+      currency: string
+      amountInMGA: number
+      rate: number
+    }
+    fees: {
+      processing: {
+        amount: number
+        currency: string
+        amountInMGA: number
+      }
+      tax: {
+        amount: number
+        currency: string
+        amountInMGA: number
+        rate: number
+      }
+    }
+    total: number
   }
   calculationMethod: string
   transitTime: string
@@ -129,7 +149,7 @@ export function ImportSimulationModal({ open, onOpenChange, onAddToCart }: Impor
 
   const shouldAutoCalculate = () => {
     const hasPrice = formData.supplierPrice && parseFloat(formData.supplierPrice) > 0
-    const hasWeight = formData.weight && parseFloat(formData.weight) > 0
+    const hasWeight = formData.weight !== undefined && formData.weight !== '' // Permettre poids = 0
     const hasVolume = formData.mode === 'air' || (formData.volume && parseFloat(formData.volume) > 0)
     
     return hasPrice && hasWeight && hasVolume
@@ -183,23 +203,32 @@ export function ImportSimulationModal({ open, onOpenChange, onAddToCart }: Impor
     // Si le poids est 0 ou non défini, c'est un service
     const itemType: 'PRODUCT' | 'SERVICE' = weight > 0 ? 'PRODUCT' : 'SERVICE'
 
+    // Fonction pour arrondir à 100 Ar près (seulement pour le prix final)
+    const roundToHundred = (value: number): number => {
+      return Math.round(value / 100) * 100
+    }
+
+    // Calculer le prix suggéré avec une marge de 20% et arrondir seulement le prix final à 100 Ar
+    const total = Number(calculation.costs.total)
+    const suggestedPrice = roundToHundred(total * 1.2)
+
     const importedItem: ImportedItem = {
       id: `imported-${Date.now()}`,
       itemType,
       name: formData.productName,
-      price: calculation.costs.suggestedPriceMGA,
+      price: suggestedPrice,
       weight: weight,
-      description: `Produit importé via transport ${formData.mode === 'air' ? 'aérien' : 'maritime'} depuis ${formData.warehouse}.\n\nCoût d'importation calculé: ${calculation.costs.totalCostMGA.toLocaleString('fr-FR')} Ar\nDélai de livraison: ${calculation.transitTime}`,
+      description: `Produit importé via transport ${formData.mode === 'air' ? 'aérien' : 'maritime'} depuis ${formData.warehouse}.\n\nCoût d'importation calculé: ${total.toLocaleString('fr-FR')} Ar\nDélai de livraison: ${calculation.transitTime}`,
       importData: {
         mode: formData.mode,
         warehouse: formData.warehouse,
-        supplierPrice: calculation.costs.supplierPrice,
-        supplierCurrency: calculation.costs.supplierCurrency,
-        transportCost: calculation.costs.transportCost,
-        customsDuty: calculation.costs.customsDuty,
-        vat: calculation.costs.vat,
-        handlingFee: calculation.costs.handlingFee,
-        totalCost: calculation.costs.totalCostMGA,
+        supplierPrice: calculation.costs.supplierPrice.amount,
+        supplierCurrency: calculation.costs.supplierPrice.currency,
+        transportCost: calculation.costs.transport.amountInMGA,
+        commission: calculation.costs.commission.amountInMGA,
+        vat: calculation.costs.fees.tax.amountInMGA,
+        handlingFee: calculation.costs.fees.processing.amountInMGA,
+        totalCost: calculation.costs.total,
         calculationDate: new Date().toISOString()
       }
     }
@@ -399,60 +428,77 @@ export function ImportSimulationModal({ open, onOpenChange, onAddToCart }: Impor
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {/* Détails des coûts */}
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Prix fournisseur:</span>
-                      <span className="font-medium">
-                        {calculation.costs.supplierPrice.toFixed(2)} {calculation.costs.supplierCurrency}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Transport:</span>
-                      <span className="font-medium">
-                        {calculation.costs.transportCost.toLocaleString('fr-FR')} Ar
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Droits de douane:</span>
-                      <span className="font-medium">
-                        {calculation.costs.customsDuty.toLocaleString('fr-FR')} Ar
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">TVA:</span>
-                      <span className="font-medium">
-                        {calculation.costs.vat.toLocaleString('fr-FR')} Ar
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Frais de gestion:</span>
-                      <span className="font-medium">
-                        {calculation.costs.handlingFee.toLocaleString('fr-FR')} Ar
-                      </span>
-                    </div>
-                    
-                    <Separator />
-                    
-                    <div className="flex justify-between text-base font-bold">
-                      <span>Coût total:</span>
-                      <span className="text-primary">
-                        {calculation.costs.totalCostMGA.toLocaleString('fr-FR')} Ar
-                      </span>
-                    </div>
-                    
-                    <Separator />
-                    
-                    <div className="flex justify-between text-base">
-                      <span>Prix suggéré:</span>
-                      <span className="font-bold text-green-600">
-                        {calculation.costs.suggestedPriceMGA.toLocaleString('fr-FR')} Ar
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-xs text-muted-foreground">
-                      <span>Marge bénéficiaire:</span>
-                      <span>{calculation.costs.profitMargin}%</span>
-                    </div>
-                  </div>
+                  {(() => {
+                    // Fonction pour arrondir à 100 Ar près (seulement pour le prix final)
+                    const roundToHundred = (value: number): number => {
+                      return Math.round(value / 100) * 100
+                    }
+
+                    const transport = Number(calculation.costs.transport.amountInMGA)
+                    const commission = Number(calculation.costs.commission.amountInMGA)
+                    const tax = Number(calculation.costs.fees.tax.amountInMGA)
+                    const processing = Number(calculation.costs.fees.processing.amountInMGA)
+                    const total = Number(calculation.costs.total)
+                    // Arrondir seulement le prix suggéré final à 100 Ar près
+                    const suggestedPrice = roundToHundred(total * 1.2)
+
+                    return (
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Prix fournisseur:</span>
+                          <span className="font-medium">
+                            {Math.round(Number(calculation.costs.supplierPrice.amount))} {calculation.costs.supplierPrice.currency}
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Transport:</span>
+                          <span className="font-medium">
+                            {transport.toLocaleString('fr-FR')} Ar
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Commission ({calculation.costs.commission.rate}%):</span>
+                          <span className="font-medium">
+                            {commission.toLocaleString('fr-FR')} Ar
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">TVA ({calculation.costs.fees.tax.rate}%):</span>
+                          <span className="font-medium">
+                            {tax.toLocaleString('fr-FR')} Ar
+                          </span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Frais de gestion:</span>
+                          <span className="font-medium">
+                            {processing.toLocaleString('fr-FR')} Ar
+                          </span>
+                        </div>
+                        
+                        <Separator />
+                        
+                        <div className="flex justify-between text-base font-bold">
+                          <span>Coût total:</span>
+                          <span className="text-primary">
+                            {total.toLocaleString('fr-FR')} Ar
+                          </span>
+                        </div>
+                        
+                        <Separator />
+                        
+                        <div className="flex justify-between text-base">
+                          <span>Prix suggéré:</span>
+                          <span className="font-bold text-green-600">
+                            {suggestedPrice.toLocaleString('fr-FR')} Ar
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-xs text-muted-foreground">
+                          <span>Marge bénéficiaire:</span>
+                          <span>20%</span>
+                        </div>
+                      </div>
+                    )
+                  })()}
 
                   {/* Type d'article */}
                   <Alert>

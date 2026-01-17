@@ -421,3 +421,4 @@ export default function EnhancedQuoteCard({ quote, onAction, compact = false }: 
 }
 
 
+

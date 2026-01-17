@@ -54,7 +54,8 @@ export async function GET(
           createdAt: msg.createdAt,
           isAdminReply: msg.sender?.role === 'ADMIN' || msg.sender?.role === 'STAFF',
           isSystemMessage: msg.isSystemMessage || false,
-          sender: msg.sender
+          sender: msg.sender,
+          proposedPrice: msg.proposedPrice ? Number(msg.proposedPrice) : null
         })),
         hasMore,
         totalMessages

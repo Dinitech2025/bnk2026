@@ -252,3 +252,4 @@ Votre page d'inventaire est maintenant :
 **Impact** : 🚀 +300% de fonctionnalités, +200% de performance
 
 
+

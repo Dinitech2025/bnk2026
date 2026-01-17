@@ -167,6 +167,11 @@ export async function POST(request: Request) {
         totalPrice: itemTotalPrice,
         itemType: item.itemType,
       }
+      
+      // Sauvegarder les métadonnées si elles existent (pour les produits importés)
+      if (item.metadata) {
+        orderItem.metadata = typeof item.metadata === 'string' ? item.metadata : JSON.stringify(item.metadata);
+      }
 
       // Ajouter les champs de réduction seulement s'ils existent
       if (item.discountType && item.discountType !== 'NONE') {

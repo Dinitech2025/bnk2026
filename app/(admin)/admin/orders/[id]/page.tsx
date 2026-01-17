@@ -441,6 +441,7 @@ async function getOrder(id: string): Promise<any> {
       totalPrice: Number(item.totalPrice),
       discountValue: item.discountValue ? Number(item.discountValue) : null,
       discountAmount: item.discountAmount ? Number(item.discountAmount) : null,
+      metadata: item.metadata, // Préserver les métadonnées
     })),
     payments: (order as any).payments.map((payment: any) => ({
       ...payment,
@@ -571,6 +572,16 @@ export default async function OrderDetailsPage({ params }: { params: { id: strin
                 {order.items.map((item, index) => {
                   const itemMetadata = parseMetadata(item.metadata);
                   
+                  // Debug: log pour voir les métadonnées
+                  if (!item.product && !item.service && !item.offer) {
+                    console.log('Item sans relation:', {
+                      itemId: item.id,
+                      itemType: item.itemType,
+                      metadata: item.metadata,
+                      parsedMetadata: itemMetadata
+                    });
+                  }
+                  
                   return (
                     <div key={item.id} className="bg-gray-50 border border-gray-200 rounded-lg p-4 hover:bg-gray-100 transition-colors">
                       <div className="flex justify-between items-center">
@@ -583,7 +594,38 @@ export default async function OrderDetailsPage({ params }: { params: { id: strin
                             </div>
                             <div className="flex-1 min-w-0">
                               <h3 className="font-medium text-gray-900 truncate">
-                                {item.product?.name || item.service?.name || item.offer?.name || itemMetadata?.name || 'Article'}
+                                {(() => {
+                                  // Priorité aux relations directes
+                                  if (item.product?.name) return item.product.name;
+                                  if (item.service?.name) return item.service.name;
+                                  if (item.offer?.name) return item.offer.name;
+                                  
+                                  // Vérifier les métadonnées pour les produits importés
+                                  if (itemMetadata) {
+                                    // Essayer différentes propriétés possibles dans les métadonnées
+                                    if (itemMetadata.name) return itemMetadata.name;
+                                    if (itemMetadata.productName) return itemMetadata.productName;
+                                    if (itemMetadata.serviceName) return itemMetadata.serviceName;
+                                    if (itemMetadata.offerName) return itemMetadata.offerName;
+                                    if (itemMetadata.title) return itemMetadata.title;
+                                  }
+                                  
+                                  // Fallback supplémentaire si parseMetadata a échoué
+                                  if (item.metadata) {
+                                    try {
+                                      const metadata = typeof item.metadata === 'string' ? JSON.parse(item.metadata) : item.metadata;
+                                      if (metadata?.name) return metadata.name;
+                                      if (metadata?.productName) return metadata.productName;
+                                      if (metadata?.serviceName) return metadata.serviceName;
+                                      if (metadata?.offerName) return metadata.offerName;
+                                      if (metadata?.title) return metadata.title;
+                                    } catch (e) {
+                                      console.error('Erreur parsing metadata:', e);
+                                    }
+                                  }
+                                  
+                                  return 'Article';
+                                })()}
                               </h3>
                               <div className="flex items-center gap-2 mt-1">
                                 <Badge variant="outline" className="text-xs">

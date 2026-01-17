@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     const { mode, productName, productUrl, supplierPrice, supplierCurrency, weight, warehouse, volume } = data
 
     // Validation des données - accepter poids zéro
-    if (!mode || supplierPrice === undefined || supplierPrice === null || !supplierCurrency || (weight === undefined && weight !== 0) || !warehouse) {
+    if (!mode || supplierPrice === undefined || supplierPrice === null || !supplierCurrency || weight === undefined || !warehouse) {
       return new NextResponse(
         JSON.stringify({ error: 'Données manquantes' }),
         { status: 400 }

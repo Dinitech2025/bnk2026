@@ -430,6 +430,7 @@ export function EnhancedOrderForm({ users, products, services, offers, paymentMe
       totalPrice: importedItem.price,
       metadata: {
         isImported: true,
+        name: importedItem.name, // Ajouter le nom dans les métadonnées
         weight: importedItem.weight,
         description: importedItem.description,
         importData: importedItem.importData
@@ -827,6 +828,11 @@ export function EnhancedOrderForm({ users, products, services, offers, paymentMe
             unitPrice: item.unitPrice,
             totalPrice: item.totalPrice
           };
+
+          // Ajouter les métadonnées si elles existent (pour les produits importés)
+          if (item.metadata) {
+            itemData.metadata = item.metadata;
+          }
 
           // Ajouter les champs de réduction seulement s'ils existent vraiment
           if (item.discountType && item.discountType !== 'NONE' && item.discountValue) {
