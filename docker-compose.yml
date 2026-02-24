@@ -77,6 +77,10 @@ services:
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET: bnk2026
       MINIO_REGION: us-east-1
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: http://${RASPBERRY_IP}:3000
+      NEXT_PUBLIC_APP_NAME: BoutikNaka
+      NEXT_PUBLIC_APP_URL: http://${RASPBERRY_IP}:3000
     deploy:
       resources:
         limits:
