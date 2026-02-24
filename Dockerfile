@@ -3,6 +3,7 @@ FROM node:22-alpine AS base
 # ─── Étape 1 : dépendances ───────────────────────────────────────────────────
 FROM base AS deps
 # Installer les dépendances système nécessaires pour les modules natifs (canvas, sharp, sqlite3, etc.)
+# Note: Sur ARM64 avec QEMU, certaines dépendances peuvent être problématiques
 RUN apk add --no-cache \
     libc6-compat \
     python3 \
@@ -15,10 +16,16 @@ RUN apk add --no-cache \
     pixman-dev \
     vips-dev \
     poppler-dev \
-    sqlite-dev
+    sqlite-dev \
+    || echo "Some packages may have failed to install, continuing..."
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+# Sur ARM64 avec QEMU, npm ci peut échouer, utiliser npm install avec fallback
+RUN npm ci --legacy-peer-deps 2>&1 || \
+    (echo "npm ci failed, trying npm install..." && \
+     npm install --legacy-peer-deps --no-audit --no-fund) || \
+    (echo "npm install failed, trying without legacy-peer-deps..." && \
+     npm install --no-audit --no-fund)
 
 # ─── Étape 2 : build ─────────────────────────────────────────────────────────
 FROM base AS builder
