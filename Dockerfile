@@ -2,13 +2,39 @@ FROM node:22-alpine AS base
 
 # ─── Étape 1 : dépendances ───────────────────────────────────────────────────
 FROM base AS deps
-RUN apk add --no-cache libc6-compat
+# Installer les dépendances système nécessaires pour les modules natifs (canvas, sharp, sqlite3, etc.)
+RUN apk add --no-cache \
+    libc6-compat \
+    python3 \
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev \
+    pixman-dev \
+    vips-dev \
+    poppler-dev \
+    sqlite-dev
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps || npm install --legacy-peer-deps
 
 # ─── Étape 2 : build ─────────────────────────────────────────────────────────
 FROM base AS builder
+# Installer les dépendances système pour la compilation des modules natifs
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev \
+    pixman-dev \
+    vips-dev \
+    poppler-dev \
+    sqlite-dev
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
