@@ -29,12 +29,16 @@ ENV npm_config_cache=/tmp/.npm
 # Installer node-gyp globalement pour une meilleure compatibilité
 RUN npm install -g node-gyp@latest
 
-# Installer les dépendances en deux étapes :
-# 1. D'abord les dépendances non-natives (ignore les scripts de build)
-# 2. Ensuite réinstaller avec les scripts pour les modules natifs
-RUN npm install --legacy-peer-deps --no-audit --no-fund --ignore-scripts && \
-    npm rebuild --legacy-peer-deps canvas sharp sqlite3 pdf-poppler || \
-    (echo "Some native modules failed to rebuild, continuing..." && true)
+# Installer les dépendances avec gestion d'erreur pour modules natifs
+# Sur ARM64/QEMU, certains modules peuvent échouer - on continue quand même
+RUN npm install --legacy-peer-deps --no-audit --no-fund || \
+    (echo "npm install with legacy-peer-deps failed, trying without..." && \
+     npm install --no-audit --no-fund --ignore-scripts) || \
+    (echo "npm install failed, trying minimal install..." && \
+     npm install --no-audit --no-fund --ignore-scripts --no-optional || true)
+
+# Essayer de rebuild les modules natifs critiques (sharp a des binaires précompilés)
+RUN npm rebuild sharp --legacy-peer-deps 2>&1 || echo "sharp rebuild failed, continuing..."
 
 # ─── Étape 2 : build ─────────────────────────────────────────────────────────
 FROM base AS builder
