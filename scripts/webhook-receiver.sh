@@ -22,9 +22,9 @@ payload=$(cat)
 #     exit 1
 # fi
 
-# Extraire les informations
-image=$(echo "$payload" | jq -r '.image // empty')
-sha=$(echo "$payload" | jq -r '.sha // empty')
+# Extraire les informations avec Python (jq pas toujours disponible)
+image=$(echo "$payload" | python3 -c "import sys, json; data=json.load(sys.stdin); print(data.get('image', ''))" 2>/dev/null || echo "")
+sha=$(echo "$payload" | python3 -c "import sys, json; data=json.load(sys.stdin); print(data.get('sha', ''))" 2>/dev/null || echo "")
 
 # Utiliser l'image du payload ou celle de l'environnement
 DOCKER_IMAGE="${image:-${DOCKER_IMAGE:-ghcr.io/dinitech2025/bnk2026:latest}}"
