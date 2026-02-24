@@ -12,12 +12,17 @@ Ce système permet de :
 
 Le workflow utilise automatiquement `GITHUB_TOKEN` pour push vers GHCR. Aucune configuration supplémentaire n'est nécessaire.
 
-### 2. Configurer le secret pour le webhook
+### 2. Configurer les variables et secrets
 
-Sur GitHub, allez dans **Settings > Secrets and variables > Actions** et ajoutez :
+Sur GitHub, allez dans **Settings > Secrets and variables > Actions** :
 
+**Variables** (onglet "Variables") :
 - **Name**: `RASPBERRY_WEBHOOK_URL`
 - **Value**: `http://100.70.249.11:9002` (ou votre IP Tailscale + port webhook)
+
+**Secrets** (onglet "Secrets") :
+- **Name**: `WEBHOOK_SECRET`
+- **Value**: Le même secret que celui configuré dans `.env` sur le Pi (ex: `votre-secret-super-securise-changez-moi`)
 
 ## 🍓 Configuration Raspberry Pi
 

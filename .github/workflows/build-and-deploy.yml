@@ -59,11 +59,16 @@ jobs:
         run: |
           echo "Image built and pushed to ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
           echo "Triggering deployment on Raspberry Pi..."
-          curl -X POST "${{ secrets.RASPBERRY_WEBHOOK_URL }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "ref": "${{ github.ref }}",
-              "sha": "${{ github.sha }}",
-              "image": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
-              "event": "push"
-            }' || echo "Webhook failed (non-blocking)"
+          if [ -n "${{ vars.RASPBERRY_WEBHOOK_URL }}" ]; then
+            curl -X POST "${{ vars.RASPBERRY_WEBHOOK_URL }}" \
+              -H "Content-Type: application/json" \
+              -H "X-Webhook-Secret: ${{ secrets.WEBHOOK_SECRET }}" \
+              -d '{
+                "ref": "${{ github.ref }}",
+                "sha": "${{ github.sha }}",
+                "image": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest",
+                "event": "push"
+              }' || echo "Webhook failed (non-blocking)"
+          else
+            echo "RASPBERRY_WEBHOOK_URL not configured, skipping webhook"
+          fi
