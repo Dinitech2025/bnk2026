@@ -17,11 +17,13 @@ services:
       GITHUB_USERNAME: ${GITHUB_USERNAME:-dinitech2025}
     ports:
       - "9002:9002"
-    # Installer jq et démarrer le serveur
+    # Installer jq, créer le fichier de log et démarrer le serveur
     command: >
       sh -c "
         apt-get update -qq && 
         apt-get install -y -qq jq curl > /dev/null 2>&1 && 
+        touch /var/log/bnk2026-webhook.log && 
+        chmod 666 /var/log/bnk2026-webhook.log && 
         python3 /app/scripts/webhook-server.py
       "
     networks:
