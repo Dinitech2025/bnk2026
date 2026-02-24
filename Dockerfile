@@ -38,7 +38,7 @@ COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 
 # Script de démarrage (migrations + Next.js)
 COPY docker-entrypoint.sh ./
-RUN chmod +x docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh && chown nextjs:nodejs docker-entrypoint.sh
 
 USER nextjs
 EXPOSE 3000
