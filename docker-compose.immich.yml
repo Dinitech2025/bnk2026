@@ -1,0 +1,77 @@
+services:
+
+  # ─── Base de données PostgreSQL (Immich) ─────────────────────────────────
+  immich-db:
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0
+    container_name: immich-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${IMMICH_DB_USER}
+      POSTGRES_PASSWORD: ${IMMICH_DB_PASSWORD}
+      POSTGRES_DB: immich
+      POSTGRES_INITDB_ARGS: --data-checksums
+    volumes:
+      - immich-postgres:/var/lib/postgresql/data
+    networks:
+      - immich
+
+  # ─── Redis (Immich) ──────────────────────────────────────────────────────
+  immich-redis:
+    image: redis:7.4-alpine
+    container_name: immich-redis
+    restart: unless-stopped
+    networks:
+      - immich
+
+  # ─── Machine Learning (Immich) ───────────────────────────────────────────
+  immich-ml:
+    image: ghcr.io/immich-app/immich-machine-learning:release
+    container_name: immich-ml
+    restart: unless-stopped
+    volumes:
+      - immich-model-cache:/cache
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512m
+    networks:
+      - immich
+
+  # ─── Serveur Immich ──────────────────────────────────────────────────────
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:release
+    container_name: immich-server
+    restart: unless-stopped
+    ports:
+      - "2283:2283"
+    environment:
+      DB_HOSTNAME: immich-db
+      DB_USERNAME: ${IMMICH_DB_USER}
+      DB_PASSWORD: ${IMMICH_DB_PASSWORD}
+      DB_DATABASE_NAME: immich
+      REDIS_HOSTNAME: immich-redis
+      UPLOAD_LOCATION: /usr/src/app/upload
+    volumes:
+      - immich-uploads:/usr/src/app/upload
+    depends_on:
+      - immich-db
+      - immich-redis
+      - immich-ml
+    networks:
+      - immich
+
+volumes:
+  immich-postgres:
+    external: true
+    name: n0gsck8gw8cg8wwggw4g4oco_immich-postgres-data
+  immich-uploads:
+    external: true
+    name: n0gsck8gw8cg8wwggw4g4oco_immich-uploads
+  immich-model-cache:
+    external: true
+    name: n0gsck8gw8cg8wwggw4g4oco_immich-model-cache
+
+networks:
+  immich:
+    driver: bridge
