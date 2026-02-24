@@ -11,6 +11,10 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          memory: 512m
     networks:
       - bnk2026
 
@@ -28,6 +32,10 @@ services:
     ports:
       - "9000:9000"   # API S3
       - "9001:9001"   # Console web MinIO
+    deploy:
+      resources:
+        limits:
+          memory: 512m
     networks:
       - bnk2026
 
@@ -67,6 +75,10 @@ services:
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET: bnk2026
       MINIO_REGION: us-east-1
+    deploy:
+      resources:
+        limits:
+          memory: 1g
     depends_on:
       - db
       - minio
