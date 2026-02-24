@@ -58,11 +58,23 @@ RUN apk add --no-cache \
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# Allouer 4 Go à Node.js pour le build (profite des 8 Go du Pi)
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+
+# Allouer plus de mémoire pour le build (GitHub Actions a plus de RAM)
+ENV NODE_OPTIONS="--max-old-space-size=6144"
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN npx prisma generate
-RUN npm run build
+
+# Générer le client Prisma (séparé pour mieux isoler les erreurs)
+RUN npx prisma generate --no-engine || \
+    (echo "Prisma generate failed, trying without --no-engine..." && \
+     npx prisma generate)
+
+# Build Next.js avec gestion d'erreur améliorée
+# Note: Sur ARM64/QEMU, certains modules natifs peuvent causer des warnings
+RUN npm run build || \
+    (echo "Build failed, checking for specific errors..." && \
+     npm run build 2>&1 | head -50 && \
+     exit 1)
+
 # Nettoyer les dépendances de développement et caches après le build
 RUN rm -rf node_modules/.cache \
     && npm prune --production \
