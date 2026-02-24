@@ -1,43 +1,19 @@
-name: Build & Deploy
+name: Notify Raspberry Pi
 
 on:
   push:
     branches:
-      - main      # → production
-      - sandbox   # → sandbox
+      - main
+      - sandbox
 
 jobs:
-  build-and-push:
+  notify:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Définir le tag Docker selon la branche
-        id: tag
+      - name: Notifier le Raspberry Pi
+        # Le Raspberry Pi doit exposer un webhook (ex: avec webhook ou Portainer)
+        # Sinon, supprimer ce step et faire un git pull + docker compose up manuellement
         run: |
-          if [ "${{ github.ref_name }}" = "main" ]; then
-            echo "TAG=latest" >> $GITHUB_OUTPUT
-          else
-            echo "TAG=${{ github.ref_name }}" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Login Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build et push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/bnk2026:${{ steps.tag.outputs.TAG }}
-
-      - name: Notifier Coolify (redéploiement automatique)
-        run: |
-          curl -X GET "${{ secrets.COOLIFY_WEBHOOK_URL }}" \
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}"
+          echo "Push sur ${{ github.ref_name }} — mettre à jour le Raspberry Pi manuellement :"
+          echo "  ssh pi@RASPBERRY_IP"
+          echo "  cd bnk2026 && git pull && docker compose up -d --build"
