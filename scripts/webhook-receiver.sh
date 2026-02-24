@@ -39,16 +39,25 @@ cd "$PROJECT_DIR" || {
     exit 1
 }
 
+# Utiliser docker depuis l'hôte via le socket
+DOCKER_CMD="docker"
+if [ -S /var/run/docker.sock ]; then
+    DOCKER_CMD="docker"
+else
+    log "WARNING: Docker socket not found, commands may fail"
+fi
+
 # Pull la dernière version du code (pour docker-compose.yml)
 log "Mise à jour du code..."
-git pull origin main || {
+cd "$PROJECT_DIR" || exit 1
+$DOCKER_CMD run --rm -v "$PROJECT_DIR:/workspace" -w /workspace alpine/git:latest pull origin main || {
     log "WARNING: git pull failed, continuing anyway"
 }
 
 # Login à GHCR (si nécessaire)
 if [ -n "$GITHUB_TOKEN" ] && [ -n "$GITHUB_USERNAME" ]; then
     log "Connexion à GitHub Container Registry..."
-    echo "$GITHUB_TOKEN" | docker login ghcr.io -u "$GITHUB_USERNAME" --password-stdin 2>/dev/null || {
+    echo "$GITHUB_TOKEN" | $DOCKER_CMD login ghcr.io -u "$GITHUB_USERNAME" --password-stdin 2>/dev/null || {
         log "WARNING: GHCR login failed, trying without auth"
     }
 fi
@@ -58,22 +67,23 @@ export DOCKER_IMAGE
 
 # Pull la nouvelle image
 log "Téléchargement de l'image: $DOCKER_IMAGE"
-docker pull "$DOCKER_IMAGE" || {
+$DOCKER_CMD pull "$DOCKER_IMAGE" || {
     log "ERROR: Failed to pull image"
     exit 1
 }
 
 # Mettre à jour docker-compose.yml avec la nouvelle image
 log "Mise à jour des services..."
-docker compose pull app || true
-docker compose up -d --no-deps app || {
+cd "$PROJECT_DIR" || exit 1
+$DOCKER_CMD compose pull app || true
+$DOCKER_CMD compose up -d --no-deps app || {
     log "ERROR: Failed to start services"
     exit 1
 }
 
 # Nettoyer les anciennes images
 log "Nettoyage des anciennes images..."
-docker image prune -f || true
+$DOCKER_CMD image prune -f || true
 
 log "=== Déploiement terminé avec succès ==="
 log "Services démarrés:"
