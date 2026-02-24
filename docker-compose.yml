@@ -18,43 +18,10 @@ services:
     networks:
       - bnk2026
 
-  # ─── Stockage d'images MinIO ─────────────────────────────────────────────
-  minio:
-    image: minio/minio:latest
-    container_name: bnk2026-minio
-    restart: unless-stopped
-    command: server /data --console-address ":9001"
-    environment:
-      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
-      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
-    volumes:
-      - minio_data:/data
-    ports:
-      - "9000:9000"   # API S3
-      - "9001:9001"   # Console web MinIO
-    deploy:
-      resources:
-        limits:
-          memory: 512m
-    networks:
-      - bnk2026
-
-  # ─── Création automatique du bucket MinIO ────────────────────────────────
-  minio-init:
-    image: minio/mc:latest
-    container_name: bnk2026-minio-init
-    depends_on:
-      - minio
-    entrypoint: >
-      /bin/sh -c "
-        sleep 5;
-        mc alias set local http://minio:9000 ${MINIO_ACCESS_KEY} ${MINIO_SECRET_KEY};
-        mc mb --ignore-existing local/bnk2026;
-        mc anonymous set public local/bnk2026;
-        exit 0;
-      "
-    networks:
-      - bnk2026
+  # ─── Stockage d'images MinIO (utilise le MinIO existant de Coolify) ─────
+  # MinIO tourne déjà : minio-dk4o0sog0ssco4884g0w4ko8
+  # Accès : http://100.70.249.11:9000 (API) et :9001 (console)
+  # Credentials : dinitech / HKQV3U3CNkqxJcDyJ
 
   # ─── Application Next.js ─────────────────────────────────────────────────
   app:
@@ -68,7 +35,7 @@ services:
     environment:
       NODE_ENV: production
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
-      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ENDPOINT: http://minio-dk4o0sog0ssco4884g0w4ko8:9000
       MINIO_PUBLIC_URL: http://${RASPBERRY_IP}:9000
       NEXT_TELEMETRY_DISABLED: 1
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
@@ -81,14 +48,15 @@ services:
           memory: 1g
     depends_on:
       - db
-      - minio
     networks:
       - bnk2026
+      - coolify  # Pour accéder au MinIO existant
 
 volumes:
   postgres_data:
-  minio_data:
 
 networks:
   bnk2026:
     driver: bridge
+  coolify:
+    external: true
