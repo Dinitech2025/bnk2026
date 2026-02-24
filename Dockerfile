@@ -20,12 +20,10 @@ RUN apk add --no-cache \
     || echo "Some packages may have failed to install, continuing..."
 WORKDIR /app
 COPY package.json package-lock.json ./
-# Sur ARM64 avec QEMU, npm ci peut échouer, utiliser npm install avec fallback
-RUN npm ci --legacy-peer-deps 2>&1 || \
-    (echo "npm ci failed, trying npm install..." && \
-     npm install --legacy-peer-deps --no-audit --no-fund) || \
-    (echo "npm install failed, trying without legacy-peer-deps..." && \
-     npm install --no-audit --no-fund)
+# Sur ARM64 avec QEMU, npm ci peut échouer à cause de problèmes de compatibilité
+# Utiliser npm install directement avec options pour éviter les problèmes
+RUN npm install --legacy-peer-deps --no-audit --no-fund --prefer-offline || \
+    npm install --no-audit --no-fund --prefer-offline
 
 # ─── Étape 2 : build ─────────────────────────────────────────────────────────
 FROM base AS builder
