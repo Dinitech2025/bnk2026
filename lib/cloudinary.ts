@@ -1,40 +1,53 @@
-import { v2 as cloudinary } from 'cloudinary';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { v4 as uuidv4 } from 'uuid';
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+const s3Client = new S3Client({
+  endpoint: process.env.MINIO_ENDPOINT || 'http://100.70.249.11:9000',
+  region: process.env.MINIO_REGION || 'us-east-1',
+  credentials: {
+    accessKeyId: process.env.MINIO_ACCESS_KEY || '',
+    secretAccessKey: process.env.MINIO_SECRET_KEY || '',
+  },
+  forcePathStyle: true,
 });
 
-export async function uploadToCloudinary(file: File): Promise<string> {
+const BUCKET = process.env.MINIO_BUCKET || 'bnk2026';
+const PUBLIC_URL = process.env.MINIO_PUBLIC_URL || 'http://100.70.249.11:9000';
+
+export async function uploadToCloudinary(file: File, folder: string = 'categories'): Promise<string> {
   try {
-    // Convertir le fichier en base64
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-    const base64 = buffer.toString('base64')
-    const dataURI = `data:${file.type};base64,${base64}`
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    
+    const ext = file.name.split('.').pop() || 'jpg';
+    const key = `${folder}/${uuidv4()}.${ext}`;
 
-    // Upload vers Cloudinary
-    const result = await cloudinary.uploader.upload(dataURI, {
-      folder: 'categories', // Dossier dans Cloudinary
-      resource_type: 'auto',
-    })
+    await s3Client.send(new PutObjectCommand({
+      Bucket: BUCKET,
+      Key: key,
+      Body: buffer,
+      ContentType: file.type,
+    }));
 
-    return result.secure_url
+    return `${PUBLIC_URL}/${BUCKET}/${key}`;
   } catch (error) {
-    console.error('Error uploading to Cloudinary:', error)
-    throw new Error('Failed to upload file to Cloudinary')
+    console.error('Error uploading to MinIO:', error);
+    throw new Error('Failed to upload file to MinIO');
   }
 }
 
 export async function deleteFromCloudinary(publicId: string) {
   try {
-    await cloudinary.uploader.destroy(publicId)
-    return true
+    const key = publicId.replace(`${PUBLIC_URL}/${BUCKET}/`, '');
+    await s3Client.send(new DeleteObjectCommand({
+      Bucket: BUCKET,
+      Key: key,
+    }));
+    return true;
   } catch (error) {
-    console.error('Error deleting from Cloudinary:', error)
-    return false
+    console.error('Error deleting from MinIO:', error);
+    return false;
   }
 }
 
-export default cloudinary; 
+export default s3Client; 

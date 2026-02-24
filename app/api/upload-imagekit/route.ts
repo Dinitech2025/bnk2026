@@ -1,6 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3'
+import { v4 as uuidv4 } from 'uuid'
+import sharp from 'sharp'
+
+const s3Client = new S3Client({
+  endpoint: process.env.MINIO_ENDPOINT || 'http://100.70.249.11:9000',
+  region: process.env.MINIO_REGION || 'us-east-1',
+  credentials: {
+    accessKeyId: process.env.MINIO_ACCESS_KEY || '',
+    secretAccessKey: process.env.MINIO_SECRET_KEY || '',
+  },
+  forcePathStyle: true,
+})
+
+const BUCKET = process.env.MINIO_BUCKET || 'bnk2026'
+const PUBLIC_URL = process.env.MINIO_PUBLIC_URL || 'http://100.70.249.11:9000'
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +28,6 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData()
     
-    // Supporter les deux formats: 'file' (singulier) et 'files' (pluriel)
     let files: File[] = []
     const singleFile = formData.get('file') as File
     const multipleFiles = formData.getAll('files') as File[]
@@ -25,86 +40,59 @@ export async function POST(request: NextRequest) {
     
     const type = formData.get('type') as string || 'general'
 
-    console.log('📁 FormData reçue:', {
-      singleFile: singleFile ? singleFile.name : 'null',
-      multipleFiles: multipleFiles.length,
-      type,
-      finalFilesCount: files.length
-    })
-
     if (!files || files.length === 0) {
-      console.error('❌ Aucun fichier fourni dans la requête')
       return NextResponse.json({ error: 'Aucun fichier fourni' }, { status: 400 })
     }
 
-    // Import dynamique d'ImageKit
-    const ImageKit = (await import('imagekit')).default
-
-    const imagekit = new ImageKit({
-      publicKey: process.env.IMAGEKIT_PUBLIC_KEY || 'public_ww3tp1IR2TWgySCwmbjiclv9auc=',
-      privateKey: process.env.IMAGEKIT_PRIVATE_KEY || 'private_KRAJobsgeMLRmi7FJNPVxXEVEvs=',
-      urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || 'https://ik.imagekit.io/q475ish3ih',
-    })
-
     const uploadPromises = files.map(async (file) => {
       const bytes = await file.arrayBuffer()
-      const buffer = Buffer.from(bytes)
+      let buffer = Buffer.from(bytes)
 
-      // Déterminer le dossier selon le type
-      let folder = 'bnk/general'
-      switch (type) {
-        case 'quote':
-          folder = 'bnk/quotes'
-          break
-        case 'logo':
-          folder = 'bnk/logos'
-          break
-        case 'favicon':
-          folder = 'bnk/favicons'
-          break
-        case 'product':
-          folder = 'bnk/products'
-          break
-        case 'service':
-          folder = 'bnk/services'
-          break
-        default:
-          folder = 'bnk/general'
+      // Optimiser les images avec sharp
+      if (file.type.startsWith('image/')) {
+        buffer = await sharp(buffer)
+          .resize(1920, 1920, { fit: 'inside', withoutEnlargement: true })
+          .webp({ quality: 85 })
+          .toBuffer()
       }
 
-      return new Promise((resolve, reject) => {
-        imagekit.upload({
-          file: buffer,
-          fileName: file.name,
-          folder: folder,
-          useUniqueFileName: true,
-        }, (error, result) => {
-          if (error) {
-            console.error('Erreur ImageKit:', error)
-            reject(error)
-          } else {
-            resolve(result?.url)
-          }
-        })
-      })
+      // Déterminer le dossier selon le type
+      let folder = 'general'
+      switch (type) {
+        case 'quote': folder = 'quotes'; break
+        case 'logo': folder = 'logos'; break
+        case 'favicon': folder = 'favicons'; break
+        case 'product': folder = 'products'; break
+        case 'service': folder = 'services'; break
+        default: folder = 'general'
+      }
+
+      const ext = file.name.split('.').pop() || 'webp'
+      const key = `${folder}/${uuidv4()}.${ext}`
+
+      await s3Client.send(new PutObjectCommand({
+        Bucket: BUCKET,
+        Key: key,
+        Body: buffer,
+        ContentType: file.type.startsWith('image/') ? 'image/webp' : file.type,
+      }))
+
+      return `${PUBLIC_URL}/${BUCKET}/${key}`
     })
 
     const urls = await Promise.all(uploadPromises)
-    const validUrls = urls.filter(Boolean)
 
-    // Si un seul fichier, retourner l'URL directement (compatibilité avec les composants existants)
-    if (files.length === 1 && validUrls.length === 1) {
+    if (files.length === 1 && urls.length === 1) {
       return NextResponse.json({ 
-        url: validUrls[0],
-        urls: validUrls,
+        url: urls[0],
+        urls: urls,
         message: 'Fichier uploadé avec succès'
       })
     }
 
-    // Pour plusieurs fichiers, retourner le format habituel
     return NextResponse.json({ 
-      urls: validUrls,
-      message: `${validUrls.length} fichier(s) uploadé(s) avec succès`
+      urls: urls,
+      message: `${urls.length} fichier(s) uploadé(s) avec succès`
     })
 
   } catch (error) {

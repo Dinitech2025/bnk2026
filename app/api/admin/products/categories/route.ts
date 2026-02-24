@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     // Gérer l'upload d'image si présente
     if (imageFile) {
-      const imageUrl = await uploadToCloudinary(imageFile)
+      const imageUrl = await uploadToCloudinary(imageFile, 'categories')
       data.image = imageUrl
     }
 

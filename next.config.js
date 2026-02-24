@@ -1,7 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   images: {
-    domains: ['localhost', 'via.placeholder.com', 'images.unsplash.com', 'ik.imagekit.io'],
+    domains: ['localhost', 'via.placeholder.com', 'images.unsplash.com'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '100.70.249.11',
+        port: '9000',
+        pathname: '/bnk2026/**',
+      },
+    ],
     unoptimized: process.env.NODE_ENV === 'development'
   },
   

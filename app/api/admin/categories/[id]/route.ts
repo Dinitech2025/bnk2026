@@ -92,20 +92,14 @@ export async function PUT(request: Request, { params }: RouteParams) {
     if (imageFile) {
       // Supprimer l'ancienne image si elle existe
       if (existingCategory?.image) {
-        const publicId = existingCategory.image.split('/').pop()?.split('.')[0]
-        if (publicId) {
-          await deleteFromCloudinary(publicId)
-        }
+        await deleteFromCloudinary(existingCategory.image)
       }
-      const imageUrl = await uploadToCloudinary(imageFile)
+      const imageUrl = await uploadToCloudinary(imageFile, 'categories')
       data.image = imageUrl
     } else if (removeImage) {
-      // Supprimer l'image existante de Cloudinary
+      // Supprimer l'image existante de MinIO
       if (existingCategory?.image) {
-        const publicId = existingCategory.image.split('/').pop()?.split('.')[0]
-        if (publicId) {
-          await deleteFromCloudinary(publicId)
-        }
+        await deleteFromCloudinary(existingCategory.image)
       }
       data.image = null
     }
