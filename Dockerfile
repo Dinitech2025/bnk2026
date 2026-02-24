@@ -43,6 +43,10 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npx prisma generate
 RUN npm run build
+# Nettoyer les dépendances de développement et caches après le build
+RUN rm -rf node_modules/.cache \
+    && npm prune --production \
+    && rm -rf /tmp/* /var/cache/apk/*
 
 # ─── Étape 3 : image finale (légère) ─────────────────────────────────────────
 FROM base AS runner
@@ -52,10 +56,22 @@ ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Fichiers nécessaires au mode standalone
+# Installer seulement les bibliothèques runtime nécessaires (pas les dev tools)
+RUN apk add --no-cache \
+    cairo \
+    jpeg \
+    pango \
+    giflib \
+    pixman \
+    vips \
+    poppler \
+    sqlite-libs
+
+# Fichiers nécessaires au mode standalone (inclut déjà la plupart des dépendances)
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
 # Schéma Prisma + migrations nécessaires au runtime
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
@@ -65,6 +81,9 @@ COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 # Script de démarrage (migrations + Next.js)
 COPY docker-entrypoint.sh ./
 RUN chmod +x docker-entrypoint.sh && chown nextjs:nodejs docker-entrypoint.sh
+
+# Nettoyer les caches npm et fichiers temporaires
+RUN rm -rf /tmp/* /var/cache/apk/*
 
 USER nextjs
 EXPOSE 3000
