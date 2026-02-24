@@ -3,10 +3,10 @@ FROM node:22-alpine AS base
 # ─── Étape 1 : dépendances ───────────────────────────────────────────────────
 FROM base AS deps
 # Installer les dépendances système nécessaires pour les modules natifs (canvas, sharp, sqlite3, etc.)
-# Note: Sur ARM64 avec QEMU, certaines dépendances peuvent être problématiques
 RUN apk add --no-cache \
     libc6-compat \
     python3 \
+    py3-pip \
     make \
     g++ \
     cairo-dev \
@@ -17,13 +17,24 @@ RUN apk add --no-cache \
     vips-dev \
     poppler-dev \
     sqlite-dev \
-    || echo "Some packages may have failed to install, continuing..."
+    pkgconfig
+
 WORKDIR /app
 COPY package.json package-lock.json ./
-# Sur ARM64 avec QEMU, npm ci peut échouer à cause de problèmes de compatibilité
-# Utiliser npm install directement avec options pour éviter les problèmes
-RUN npm install --legacy-peer-deps --no-audit --no-fund --prefer-offline || \
-    npm install --no-audit --no-fund --prefer-offline
+
+# Configurer npm et node-gyp pour ARM64
+ENV npm_config_build_from_source=false
+ENV npm_config_cache=/tmp/.npm
+
+# Installer node-gyp globalement pour une meilleure compatibilité
+RUN npm install -g node-gyp@latest
+
+# Installer les dépendances en deux étapes :
+# 1. D'abord les dépendances non-natives (ignore les scripts de build)
+# 2. Ensuite réinstaller avec les scripts pour les modules natifs
+RUN npm install --legacy-peer-deps --no-audit --no-fund --ignore-scripts && \
+    npm rebuild --legacy-peer-deps canvas sharp sqlite3 pdf-poppler || \
+    (echo "Some native modules failed to rebuild, continuing..." && true)
 
 # ─── Étape 2 : build ─────────────────────────────────────────────────────────
 FROM base AS builder
