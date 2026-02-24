@@ -60,6 +60,9 @@ services:
 
   # ─── Application Next.js ─────────────────────────────────────────────────
   app:
+    # Utiliser l'image pré-construite depuis GHCR (recommandé pour déploiement rapide)
+    image: ${DOCKER_IMAGE:-ghcr.io/dinitech2025/bnk2026:latest}
+    # Fallback: build local si DOCKER_IMAGE n'est pas défini
     build:
       context: .
       dockerfile: Dockerfile

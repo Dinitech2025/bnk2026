@@ -1,0 +1,26 @@
+services:
+  webhook:
+    image: python:3.11-slim
+    container_name: bnk2026-webhook
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./scripts:/app/scripts:ro
+      - /var/log:/var/log:rw
+      - /home/dinitech/bnk2026:/home/dinitech/bnk2026:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      WEBHOOK_PORT: 9002
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET:-changez-ce-secret}
+      PROJECT_DIR: /home/dinitech/bnk2026
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      GITHUB_USERNAME: ${GITHUB_USERNAME:-dinitech2025}
+    ports:
+      - "9002:9002"
+    command: python3 /app/scripts/webhook-server.py
+    networks:
+      - bnk2026
+
+networks:
+  bnk2026:
+    external: true
