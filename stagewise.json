@@ -1,0 +1,55 @@
+{
+  "appPort": 3000,
+  "port": 3001,
+  "workspace": ".",
+  "projectName": "Boutik Naka",
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "outputDir": ".next",
+  "publicDir": "public",
+  "srcDir": ".",
+  "componentsDir": "components",
+  "pagesDir": "app",
+  "apiDir": "app/api",
+  "stylesDir": "styles",
+  "telemetry": false,
+  "silent": false,
+  "verbose": true,
+  "configFiles": [
+    "next.config.js",
+    "tailwind.config.js",
+    "tsconfig.json",
+    "package.json"
+  ],
+  "ignore": [
+    "node_modules",
+    ".next",
+    ".git",
+    "dist",
+    "build"
+  ],
+  "features": {
+    "visualEditor": true,
+    "aiAssistant": true,
+    "liveReload": true,
+    "componentInspector": true,
+    "codeGeneration": true,
+    "toolbar": true,
+    "overlay": true,
+    "cursorIntegration": true,
+    "websocketSync": true
+  },
+  "cursor": {
+    "enabled": true,
+    "autoSync": true,
+    "chatIntegration": true,
+    "apiEndpoint": "http://localhost:3000/api/cursor",
+    "webhookUrl": "http://localhost:3001/webhook/cursor"
+  },
+  "toolbar": {
+    "position": "top",
+    "theme": "dark",
+    "collapsed": false
+  }
+}

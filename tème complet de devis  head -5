@@ -1,0 +1,30 @@
+[33md0649cf[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m � Guide pour voir la nouvelle page + script de vérification
+[33m3ac37a4[m � Correction nom fonction page devis
+[33m8b1eea2[m � Unification complète des systèmes Message et QuoteMessage
+[33m3c50773[m � Test du système de devis - Tout fonctionne !
+[33mf31bc93[m ✨ Système complet de devis et services avec tarification avancée
+[33m40c5191[m � Fix: Corrections messagerie temps réel
+[33mcea82e3[m ✨ Messagerie en temps réel style Facebook Messenger
+[33m01fb4d8[m ✨ Optimisation et amélioration UI page messages
+[33me2d9fb1[m � Fix: Correction affichage messages dans header admin
+[33m0440652[m � Fix: Désactivation widget chat sur pages admin + logs debug API messages
+[33m89d236f[m ✨ Système de messagerie client complet
+[33mc833a26[m docs: Guide d'utilisation des notifications interactives
+[33m253b89d[m docs: Documentation complète du système de notifications interactif
+[33mac30710[m feat: Améliorer les notifications avec catégories et emojis
+[33me33193d[m feat: Ajouter dropdowns interactifs pour Messages, Tâches et Notifications
+[33m9194bec[m fix: Corriger les erreurs 405 et 500 dans les APIs
+[33mfc69210[m docs: Guide d'utilisation rapide du système optimisé
+[33m104a308[m docs: Guide complet du système optimisé tâches + messagerie
+[33mb33a009[m feat: Système complet de messagerie client + Optimisations
+[33m7675b4b[m feat: Mettre à jour dynamiquement le nombre de notifications
+[33m5b70082[m fix: Utiliser AdminHeader avec icône de tâches dans le layout admin
+[33ma4c419b[m feat: Ajouter icône de tâches dans le header admin
+[33m4c41f57[m feat: Script d'application de migration pour la table Task
+[33m7eece0d[m fix: Corriger erreur SelectItem avec valeur vide dans filtres tâches
+[33m2e2cf9d[m feat: Ajouter le menu Tâches dans la sidebar admin
+[33mebe5e79[m docs: Guide d'installation du système de tâches
+[33m986c63c[m docs: Résumé complet du système de tâches implémenté
+[33meb6dcb9[m docs: Documentation complète du système de gestion de tâches
+[33m2f54b3f[m feat: Système complet de gestion de tâches automatiques
+[33m2a1686e[m fix: affichage unique du logo dans les paramètres d'apparence

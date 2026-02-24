@@ -1,0 +1,1623 @@
+{
+  "source": "Fusion extraction complète - 321 codes",
+  "methode": "Extraction normale (1-236) + Page 5 optimisée (237-321)",
+  "dateCreation": "2025-06-09T18:13:21.012Z",
+  "statistiques": {
+    "totalCodes": 321,
+    "codesParSection": {
+      "pages1-4": 236,
+      "page5-237-287": 51,
+      "page5-288-321": 34
+    },
+    "tauxReussite": "100%"
+  },
+  "codesComplets": [
+    {
+      "numero": 1,
+      "code": "30m1GDmC9"
+    },
+    {
+      "numero": 2,
+      "code": "30m1GXiMZ"
+    },
+    {
+      "numero": 3,
+      "code": "30m1Gvhbn"
+    },
+    {
+      "numero": 4,
+      "code": "30m1G3few"
+    },
+    {
+      "numero": 5,
+      "code": "30m1GmhiT"
+    },
+    {
+      "numero": 6,
+      "code": "30m1GSuBP"
+    },
+    {
+      "numero": 7,
+      "code": "30m1Gk5un"
+    },
+    {
+      "numero": 8,
+      "code": "30m1GbKV2"
+    },
+    {
+      "numero": 9,
+      "code": "30m1Gu7u6"
+    },
+    {
+      "numero": 10,
+      "code": "30m1GBtus"
+    },
+    {
+      "numero": 11,
+      "code": "30m1GXt5R"
+    },
+    {
+      "numero": 12,
+      "code": "30m1GSp7T"
+    },
+    {
+      "numero": 13,
+      "code": "30m1GJtuf"
+    },
+    {
+      "numero": 14,
+      "code": "30m1GdG3t"
+    },
+    {
+      "numero": 15,
+      "code": "30m1GutF5"
+    },
+    {
+      "numero": 16,
+      "code": "30m1GSkd4"
+    },
+    {
+      "numero": 17,
+      "code": "30m1G4nsg"
+    },
+    {
+      "numero": 18,
+      "code": "30m1GYLCv"
+    },
+    {
+      "numero": 19,
+      "code": "30m1GDZaU"
+    },
+    {
+      "numero": 20,
+      "code": "30m1Gp5ei"
+    },
+    {
+      "numero": 21,
+      "code": "30m1GU3sN"
+    },
+    {
+      "numero": 22,
+      "code": "30m1GaB3h"
+    },
+    {
+      "numero": 23,
+      "code": "30m1GhmJ5"
+    },
+    {
+      "numero": 24,
+      "code": "30m1Gniux"
+    },
+    {
+      "numero": 25,
+      "code": "30m1Gnp8k"
+    },
+    {
+      "numero": 26,
+      "code": "30m1GWnNU"
+    },
+    {
+      "numero": 27,
+      "code": "30m1GPjMG"
+    },
+    {
+      "numero": 28,
+      "code": "30m1GYX6H"
+    },
+    {
+      "numero": 29,
+      "code": "30m1GYy7E"
+    },
+    {
+      "numero": 30,
+      "code": "30m1G7msy"
+    },
+    {
+      "numero": 31,
+      "code": "30m1G3zEk"
+    },
+    {
+      "numero": 32,
+      "code": "30m1GSwwk"
+    },
+    {
+      "numero": 33,
+      "code": "30m1Gap5d"
+    },
+    {
+      "numero": 34,
+      "code": "30m1GLeFm"
+    },
+    {
+      "numero": 35,
+      "code": "30m1GsYzz"
+    },
+    {
+      "numero": 36,
+      "code": "30m1GEJKx"
+    },
+    {
+      "numero": 37,
+      "code": "30m1GwHWi"
+    },
+    {
+      "numero": 38,
+      "code": "30m1GfAeT"
+    },
+    {
+      "numero": 39,
+      "code": "30m1GL5uW"
+    },
+    {
+      "numero": 40,
+      "code": "30m1GYTTm"
+    },
+    {
+      "numero": 41,
+      "code": "30m1GPbBP"
+    },
+    {
+      "numero": 42,
+      "code": "30m1Gnj8Z"
+    },
+    {
+      "numero": 43,
+      "code": "30m1GMiiM"
+    },
+    {
+      "numero": 44,
+      "code": "30m1G5Pmz"
+    },
+    {
+      "numero": 45,
+      "code": "30m1G84Nx"
+    },
+    {
+      "numero": 46,
+      "code": "30m1G2Ags"
+    },
+    {
+      "numero": 47,
+      "code": "30m1Gaf56"
+    },
+    {
+      "numero": 48,
+      "code": "30m1GH6mL"
+    },
+    {
+      "numero": 49,
+      "code": "30m1GGyp9"
+    },
+    {
+      "numero": 50,
+      "code": "30m1GVtaz"
+    },
+    {
+      "numero": 51,
+      "code": "30m1GrZsp"
+    },
+    {
+      "numero": 52,
+      "code": "30m1G4y2d"
+    },
+    {
+      "numero": 53,
+      "code": "30m1G4S4N"
+    },
+    {
+      "numero": 54,
+      "code": "30m1GWpDA"
+    },
+    {
+      "numero": 55,
+      "code": "30m1Gbgew"
+    },
+    {
+      "numero": 56,
+      "code": "30m1GntxP"
+    },
+    {
+      "numero": 57,
+      "code": "30m1GYdZx"
+    },
+    {
+      "numero": 58,
+      "code": "30m1Gs9Xs"
+    },
+    {
+      "numero": 59,
+      "code": "30m1G8NCr"
+    },
+    {
+      "numero": 60,
+      "code": "30m1Gnyae"
+    },
+    {
+      "numero": 61,
+      "code": "30m1GZwaX"
+    },
+    {
+      "numero": 62,
+      "code": "30m1GDdYR"
+    },
+    {
+      "numero": 63,
+      "code": "30m1G9R3A"
+    },
+    {
+      "numero": 64,
+      "code": "30m1GUg2k"
+    },
+    {
+      "numero": 65,
+      "code": "30m1GeYcK"
+    },
+    {
+      "numero": 66,
+      "code": "30m1G2Se8"
+    },
+    {
+      "numero": 67,
+      "code": "30m1GWBvB"
+    },
+    {
+      "numero": 68,
+      "code": "30m1Gu4t2"
+    },
+    {
+      "numero": 69,
+      "code": "30m1GKSSU"
+    },
+    {
+      "numero": 70,
+      "code": "30m1GHe5t"
+    },
+    {
+      "numero": 71,
+      "code": "30m1GEA3m"
+    },
+    {
+      "numero": 72,
+      "code": "30m1GAPKF"
+    },
+    {
+      "numero": 73,
+      "code": "30m1GcL8R"
+    },
+    {
+      "numero": 74,
+      "code": "30m1G9G9n"
+    },
+    {
+      "numero": 75,
+      "code": "30m1Gcyff"
+    },
+    {
+      "numero": 76,
+      "code": "30m1G3Ywk"
+    },
+    {
+      "numero": 77,
+      "code": "30m1G74Je"
+    },
+    {
+      "numero": 78,
+      "code": "30m1GiHVL"
+    },
+    {
+      "numero": 79,
+      "code": "30m1GX4iM"
+    },
+    {
+      "numero": 80,
+      "code": "30m1GKNJY"
+    },
+    {
+      "numero": 81,
+      "code": "30m1GR7rL"
+    },
+    {
+      "numero": 82,
+      "code": "30m1GP5FD"
+    },
+    {
+      "numero": 83,
+      "code": "30m1GEkfr"
+    },
+    {
+      "numero": 84,
+      "code": "30m1GJba4"
+    },
+    {
+      "numero": 85,
+      "code": "30m1G9k3s"
+    },
+    {
+      "numero": 86,
+      "code": "30m1GBNs7"
+    },
+    {
+      "numero": 87,
+      "code": "30m1GUzRG"
+    },
+    {
+      "numero": 88,
+      "code": "30m1GLD46"
+    },
+    {
+      "numero": 89,
+      "code": "30m1GcxCS"
+    },
+    {
+      "numero": 90,
+      "code": "30m1GuJ9g"
+    },
+    {
+      "numero": 91,
+      "code": "30m1Gf2k6"
+    },
+    {
+      "numero": 92,
+      "code": "30m1GdbVs"
+    },
+    {
+      "numero": 93,
+      "code": "30m1GKDMv"
+    },
+    {
+      "numero": 94,
+      "code": "30m1GGfBp"
+    },
+    {
+      "numero": 95,
+      "code": "30m1GT4e2"
+    },
+    {
+      "numero": 96,
+      "code": "30m1GK8BN"
+    },
+    {
+      "numero": 97,
+      "code": "30m1GYnfR"
+    },
+    {
+      "numero": 98,
+      "code": "30m1GVWrs"
+    },
+    {
+      "numero": 99,
+      "code": "30m1GMfm7"
+    },
+    {
+      "numero": 100,
+      "code": "30m1GeWvf"
+    },
+    {
+      "numero": 101,
+      "code": "30m1G4bpT"
+    },
+    {
+      "numero": 102,
+      "code": "30m1GiAiM"
+    },
+    {
+      "numero": 103,
+      "code": "30m1GmbfN"
+    },
+    {
+      "numero": 104,
+      "code": "30m1GUvdH"
+    },
+    {
+      "numero": 105,
+      "code": "30m1G2dsY"
+    },
+    {
+      "numero": 106,
+      "code": "30m1GKiYT"
+    },
+    {
+      "numero": 107,
+      "code": "30m1GsCBK"
+    },
+    {
+      "numero": 108,
+      "code": "30m1Gj3PL"
+    },
+    {
+      "numero": 109,
+      "code": "30m1GVWxj"
+    },
+    {
+      "numero": 110,
+      "code": "30m1Gr3ut"
+    },
+    {
+      "numero": 111,
+      "code": "30m1GdjLa"
+    },
+    {
+      "numero": 112,
+      "code": "30m1GGAUK"
+    },
+    {
+      "numero": 113,
+      "code": "30m1G4S9n"
+    },
+    {
+      "numero": 114,
+      "code": "30m1Gen3x"
+    },
+    {
+      "numero": 115,
+      "code": "30m1GMAbD"
+    },
+    {
+      "numero": 116,
+      "code": "30m1GaKE8"
+    },
+    {
+      "numero": 117,
+      "code": "30m1GrCRD"
+    },
+    {
+      "numero": 118,
+      "code": "30m1Ggx35"
+    },
+    {
+      "numero": 119,
+      "code": "30m1GUnP4"
+    },
+    {
+      "numero": 120,
+      "code": "30m1GnVJp"
+    },
+    {
+      "numero": 121,
+      "code": "30m1GCAKv"
+    },
+    {
+      "numero": 122,
+      "code": "30m1GpLUb"
+    },
+    {
+      "numero": 123,
+      "code": "30m1G4NKx"
+    },
+    {
+      "numero": 124,
+      "code": "30m1G5ezb"
+    },
+    {
+      "numero": 125,
+      "code": "30m1Gvpig"
+    },
+    {
+      "numero": 126,
+      "code": "30m1GjaC2"
+    },
+    {
+      "numero": 127,
+      "code": "30m1GsCzv"
+    },
+    {
+      "numero": 128,
+      "code": "30m1GLaEi"
+    },
+    {
+      "numero": 129,
+      "code": "30m1GEdXL"
+    },
+    {
+      "numero": 130,
+      "code": "30m1GwN7a"
+    },
+    {
+      "numero": 131,
+      "code": "30m1GkeeG"
+    },
+    {
+      "numero": 132,
+      "code": "30m1Gr3Eu"
+    },
+    {
+      "numero": 133,
+      "code": "30m1GfDvK"
+    },
+    {
+      "numero": 134,
+      "code": "30m1GJpK6"
+    },
+    {
+      "numero": 135,
+      "code": "30m1GdGG8"
+    },
+    {
+      "numero": 136,
+      "code": "30m1GXueg"
+    },
+    {
+      "numero": 137,
+      "code": "30m1GG7B6"
+    },
+    {
+      "numero": 138,
+      "code": "30m1G8Lmr"
+    },
+    {
+      "numero": 139,
+      "code": "30m1GEADp"
+    },
+    {
+      "numero": 140,
+      "code": "30m1GDmpZ"
+    },
+    {
+      "numero": 141,
+      "code": "30m1GJujp"
+    },
+    {
+      "numero": 142,
+      "code": "30m1GTmwS"
+    },
+    {
+      "numero": 143,
+      "code": "30m1GL7Wg"
+    },
+    {
+      "numero": 144,
+      "code": "30m1GvfH6"
+    },
+    {
+      "numero": 145,
+      "code": "30m1GHHps"
+    },
+    {
+      "numero": 146,
+      "code": "30m1GPgM6"
+    },
+    {
+      "numero": 147,
+      "code": "30m1GZDXz"
+    },
+    {
+      "numero": 148,
+      "code": "30m1GniVB"
+    },
+    {
+      "numero": 149,
+      "code": "30m1GptPR"
+    },
+    {
+      "numero": 150,
+      "code": "30m1GSm6C"
+    },
+    {
+      "numero": 151,
+      "code": "30m1GreXj"
+    },
+    {
+      "numero": 152,
+      "code": "30m1GMivN"
+    },
+    {
+      "numero": 153,
+      "code": "30m1GB4Wy"
+    },
+    {
+      "numero": 154,
+      "code": "30m1Gxufx"
+    },
+    {
+      "numero": 155,
+      "code": "30m1GsuJY"
+    },
+    {
+      "numero": 156,
+      "code": "30m1Gwrpj"
+    },
+    {
+      "numero": 157,
+      "code": "30m1GzJFX"
+    },
+    {
+      "numero": 158,
+      "code": "30m1GpJcp"
+    },
+    {
+      "numero": 159,
+      "code": "30m1GTERA"
+    },
+    {
+      "numero": 160,
+      "code": "30m1GDg8X"
+    },
+    {
+      "numero": 161,
+      "code": "30m1G3pmV"
+    },
+    {
+      "numero": 162,
+      "code": "30m1GMj5P"
+    },
+    {
+      "numero": 163,
+      "code": "30m1Grdhy"
+    },
+    {
+      "numero": 164,
+      "code": "30m1GhFac"
+    },
+    {
+      "numero": 165,
+      "code": "30m1Gnx2H"
+    },
+    {
+      "numero": 166,
+      "code": "30m1GFziU"
+    },
+    {
+      "numero": 167,
+      "code": "30m1GsdHi"
+    },
+    {
+      "numero": 168,
+      "code": "30m1G4fjU"
+    },
+    {
+      "numero": 169,
+      "code": "30m1GM6x7"
+    },
+    {
+      "numero": 170,
+      "code": "30m1GPvss"
+    },
+    {
+      "numero": 171,
+      "code": "30m1GZW5U"
+    },
+    {
+      "numero": 172,
+      "code": "30m1Gnuc2"
+    },
+    {
+      "numero": 173,
+      "code": "30m1GYrPw"
+    },
+    {
+      "numero": 174,
+      "code": "30m1Gpn74"
+    },
+    {
+      "numero": 175,
+      "code": "30m1GmZWB"
+    },
+    {
+      "numero": 176,
+      "code": "30m1GZK8D"
+    },
+    {
+      "numero": 177,
+      "code": "30m1GgaBD"
+    },
+    {
+      "numero": 178,
+      "code": "30m1G2wMi"
+    },
+    {
+      "numero": 179,
+      "code": "30m1GUPNp"
+    },
+    {
+      "numero": 180,
+      "code": "30m1GPEKf"
+    },
+    {
+      "numero": 181,
+      "code": "30m1GHbBP"
+    },
+    {
+      "numero": 182,
+      "code": "30m1GpXJn"
+    },
+    {
+      "numero": 183,
+      "code": "30m1GjKBH"
+    },
+    {
+      "numero": 184,
+      "code": "30m1GGW6S"
+    },
+    {
+      "numero": 185,
+      "code": "30m1GDdVd"
+    },
+    {
+      "numero": 186,
+      "code": "30m1GGefe"
+    },
+    {
+      "numero": 187,
+      "code": "30m1GKHtx"
+    },
+    {
+      "numero": 188,
+      "code": "30m1Ge5G4"
+    },
+    {
+      "numero": 189,
+      "code": "30m1Gt2wd"
+    },
+    {
+      "numero": 190,
+      "code": "30m1GLyVW"
+    },
+    {
+      "numero": 191,
+      "code": "30m1GxB4d"
+    },
+    {
+      "numero": 192,
+      "code": "30m1GVuVm"
+    },
+    {
+      "numero": 193,
+      "code": "30m1G7HaY"
+    },
+    {
+      "numero": 194,
+      "code": "30m1GwPzn"
+    },
+    {
+      "numero": 195,
+      "code": "30m1GwiwX"
+    },
+    {
+      "numero": 196,
+      "code": "30m1Gstur"
+    },
+    {
+      "numero": 197,
+      "code": "30m1GcStV"
+    },
+    {
+      "numero": 198,
+      "code": "30m1GWCEz"
+    },
+    {
+      "numero": 199,
+      "code": "30m1GJZKh"
+    },
+    {
+      "numero": 200,
+      "code": "30m1GKg6M"
+    },
+    {
+      "numero": 201,
+      "code": "30m1GCgtM"
+    },
+    {
+      "numero": 202,
+      "code": "30m1GsyA9"
+    },
+    {
+      "numero": 203,
+      "code": "30m1GzrZh"
+    },
+    {
+      "numero": 204,
+      "code": "30m1G38dM"
+    },
+    {
+      "numero": 205,
+      "code": "30m1Gk7tm"
+    },
+    {
+      "numero": 206,
+      "code": "30m1G8hJY"
+    },
+    {
+      "numero": 207,
+      "code": "30m1G4ZmB"
+    },
+    {
+      "numero": 208,
+      "code": "30m1Gttay"
+    },
+    {
+      "numero": 209,
+      "code": "30m1G8367"
+    },
+    {
+      "numero": 210,
+      "code": "30m1GS7ZH"
+    },
+    {
+      "numero": 211,
+      "code": "30m1GPxCe"
+    },
+    {
+      "numero": 212,
+      "code": "30m1Gcm5U"
+    },
+    {
+      "numero": 213,
+      "code": "30m1G92ky"
+    },
+    {
+      "numero": 214,
+      "code": "30m1GgStV"
+    },
+    {
+      "numero": 215,
+      "code": "30m1GBX76"
+    },
+    {
+      "numero": 216,
+      "code": "30m1GtcLU"
+    },
+    {
+      "numero": 217,
+      "code": "30m1GT52V"
+    },
+    {
+      "numero": 218,
+      "code": "30m1GziG2"
+    },
+    {
+      "numero": 219,
+      "code": "30m1GBnbT"
+    },
+    {
+      "numero": 220,
+      "code": "30m1GN5Vz"
+    },
+    {
+      "numero": 221,
+      "code": "30m1G4ZFE"
+    },
+    {
+      "numero": 222,
+      "code": "30m1GiTzr"
+    },
+    {
+      "numero": 223,
+      "code": "30m1G4V5L"
+    },
+    {
+      "numero": 224,
+      "code": "30m1GyE7Z"
+    },
+    {
+      "numero": 225,
+      "code": "30m1GUFwA"
+    },
+    {
+      "numero": 226,
+      "code": "30m1G8xmz"
+    },
+    {
+      "numero": 227,
+      "code": "30m1G37KD"
+    },
+    {
+      "numero": 228,
+      "code": "30m1Gahdh"
+    },
+    {
+      "numero": 229,
+      "code": "30m1GFrHi"
+    },
+    {
+      "numero": 230,
+      "code": "30m1GWyLf"
+    },
+    {
+      "numero": 231,
+      "code": "30m1GiBSH"
+    },
+    {
+      "numero": 232,
+      "code": "30m1G2ps9"
+    },
+    {
+      "numero": 233,
+      "code": "30m1GDUfu"
+    },
+    {
+      "numero": 234,
+      "code": "30m1GwJHz"
+    },
+    {
+      "numero": 235,
+      "code": "30m1GBXDF"
+    },
+    {
+      "numero": 236,
+      "code": "30m1GDtx9"
+    },
+    {
+      "numero": 237,
+      "code": "30m1Gg74i"
+    },
+    {
+      "numero": 238,
+      "code": "30m1GNak4"
+    },
+    {
+      "numero": 239,
+      "code": "30m1GHPpe"
+    },
+    {
+      "numero": 240,
+      "code": "30m1GrfwG"
+    },
+    {
+      "numero": 241,
+      "code": "30m1GAcXg"
+    },
+    {
+      "numero": 242,
+      "code": "30m1GAwbj"
+    },
+    {
+      "numero": 243,
+      "code": "30m1GUHwi"
+    },
+    {
+      "numero": 244,
+      "code": "30m1GaRN4"
+    },
+    {
+      "numero": 245,
+      "code": "30m1GWf8L"
+    },
+    {
+      "numero": 246,
+      "code": "30m1GX8ZK"
+    },
+    {
+      "numero": 247,
+      "code": "30m1GaJgS"
+    },
+    {
+      "numero": 248,
+      "code": "30m1GaThV"
+    },
+    {
+      "numero": 249,
+      "code": "30m1GRP6Y"
+    },
+    {
+      "numero": 250,
+      "code": "30m1GSEdv"
+    },
+    {
+      "numero": 251,
+      "code": "30m1GYEKt"
+    },
+    {
+      "numero": 252,
+      "code": "30m1GETE4"
+    },
+    {
+      "numero": 253,
+      "code": "30m1GF52c"
+    },
+    {
+      "numero": 254,
+      "code": "30m1G3wpM"
+    },
+    {
+      "numero": 255,
+      "code": "30m1GpXDx"
+    },
+    {
+      "numero": 256,
+      "code": "30m1Gk4XD"
+    },
+    {
+      "numero": 257,
+      "code": "30m1GFiGr"
+    },
+    {
+      "numero": 258,
+      "code": "30m1GJA3m"
+    },
+    {
+      "numero": 259,
+      "code": "30m1GYcYk"
+    },
+    {
+      "numero": 260,
+      "code": "30m1G5ebV"
+    },
+    {
+      "numero": 261,
+      "code": "30m1GFvRN"
+    },
+    {
+      "numero": 262,
+      "code": "30m1GUkd5"
+    },
+    {
+      "numero": 263,
+      "code": "30m1GyFWN"
+    },
+    {
+      "numero": 264,
+      "code": "30m1G3buV"
+    },
+    {
+      "numero": 265,
+      "code": "30m1GCFvV"
+    },
+    {
+      "numero": 266,
+      "code": "30m1GmrbK"
+    },
+    {
+      "numero": 267,
+      "code": "30m1GWBcW"
+    },
+    {
+      "numero": 268,
+      "code": "30m1GfjkU"
+    },
+    {
+      "numero": 269,
+      "code": "30m1Gkw3K"
+    },
+    {
+      "numero": 270,
+      "code": "30m1GSJeF"
+    },
+    {
+      "numero": 271,
+      "code": "30m1GgftB"
+    },
+    {
+      "numero": 272,
+      "code": "30m1GsVDC"
+    },
+    {
+      "numero": 273,
+      "code": "30m1G6TbE"
+    },
+    {
+      "numero": 274,
+      "code": "30m1G8fRd"
+    },
+    {
+      "numero": 275,
+      "code": "30m1G92k2"
+    },
+    {
+      "numero": 276,
+      "code": "30m1GUisg"
+    },
+    {
+      "numero": 277,
+      "code": "30m1Gx8rk"
+    },
+    {
+      "numero": 278,
+      "code": "30m1GnNL3"
+    },
+    {
+      "numero": 279,
+      "code": "30m1GBZkv"
+    },
+    {
+      "numero": 280,
+      "code": "30m1GPxEA"
+    },
+    {
+      "numero": 281,
+      "code": "30m1G7EgM"
+    },
+    {
+      "numero": 282,
+      "code": "30m1GGGg4"
+    },
+    {
+      "numero": 283,
+      "code": "30m1GUptN"
+    },
+    {
+      "numero": 284,
+      "code": "30m1Gs7FH"
+    },
+    {
+      "numero": 285,
+      "code": "30m1GBJyK"
+    },
+    {
+      "numero": 286,
+      "code": "30m1GvvzY"
+    },
+    {
+      "numero": 287,
+      "code": "30m1G5DGv"
+    },
+    {
+      "numero": 288,
+      "code": "30m1Gg74i"
+    },
+    {
+      "numero": 289,
+      "code": "30m1GNak4"
+    },
+    {
+      "numero": 290,
+      "code": "30m1GHPpe"
+    },
+    {
+      "numero": 291,
+      "code": "30m1GrfwG"
+    },
+    {
+      "numero": 292,
+      "code": "30m1GAcXg"
+    },
+    {
+      "numero": 293,
+      "code": "30m1GAwbj"
+    },
+    {
+      "numero": 294,
+      "code": "30m1GUHwi"
+    },
+    {
+      "numero": 295,
+      "code": "30m1GaRN4"
+    },
+    {
+      "numero": 296,
+      "code": "30m1GWf8L"
+    },
+    {
+      "numero": 297,
+      "code": "30m1GX8ZK"
+    },
+    {
+      "numero": 298,
+      "code": "30m1GaJgS"
+    },
+    {
+      "numero": 299,
+      "code": "30m1GaThV"
+    },
+    {
+      "numero": 300,
+      "code": "30m1GRP6Y"
+    },
+    {
+      "numero": 301,
+      "code": "30m1GSEdv"
+    },
+    {
+      "numero": 302,
+      "code": "30m1GYEKt"
+    },
+    {
+      "numero": 303,
+      "code": "30m1GETE4"
+    },
+    {
+      "numero": 304,
+      "code": "30m1GF52c"
+    },
+    {
+      "numero": 305,
+      "code": "30m1G3wpM"
+    },
+    {
+      "numero": 306,
+      "code": "30m1GpXDx"
+    },
+    {
+      "numero": 307,
+      "code": "30m1Gk4XD"
+    },
+    {
+      "numero": 308,
+      "code": "30m1GFiGr"
+    },
+    {
+      "numero": 309,
+      "code": "30m1GJA3m"
+    },
+    {
+      "numero": 310,
+      "code": "30m1GYcYk"
+    },
+    {
+      "numero": 311,
+      "code": "30m1G5ebV"
+    },
+    {
+      "numero": 312,
+      "code": "30m1GFvRN"
+    },
+    {
+      "numero": 313,
+      "code": "30m1GUkd5"
+    },
+    {
+      "numero": 314,
+      "code": "30m1GyFWN"
+    },
+    {
+      "numero": 315,
+      "code": "30m1G3buV"
+    },
+    {
+      "numero": 316,
+      "code": "30m1GCFvV"
+    },
+    {
+      "numero": 317,
+      "code": "30m1GmrbK"
+    },
+    {
+      "numero": 318,
+      "code": "30m1GWBcW"
+    },
+    {
+      "numero": 319,
+      "code": "30m1GfjkU"
+    },
+    {
+      "numero": 320,
+      "code": "30m1Gkw3K"
+    },
+    {
+      "numero": 321,
+      "code": "30m1GSJeF"
+    }
+  ],
+  "listeCodesBruts": [
+    "30m1GDmC9",
+    "30m1GXiMZ",
+    "30m1Gvhbn",
+    "30m1G3few",
+    "30m1GmhiT",
+    "30m1GSuBP",
+    "30m1Gk5un",
+    "30m1GbKV2",
+    "30m1Gu7u6",
+    "30m1GBtus",
+    "30m1GXt5R",
+    "30m1GSp7T",
+    "30m1GJtuf",
+    "30m1GdG3t",
+    "30m1GutF5",
+    "30m1GSkd4",
+    "30m1G4nsg",
+    "30m1GYLCv",
+    "30m1GDZaU",
+    "30m1Gp5ei",
+    "30m1GU3sN",
+    "30m1GaB3h",
+    "30m1GhmJ5",
+    "30m1Gniux",
+    "30m1Gnp8k",
+    "30m1GWnNU",
+    "30m1GPjMG",
+    "30m1GYX6H",
+    "30m1GYy7E",
+    "30m1G7msy",
+    "30m1G3zEk",
+    "30m1GSwwk",
+    "30m1Gap5d",
+    "30m1GLeFm",
+    "30m1GsYzz",
+    "30m1GEJKx",
+    "30m1GwHWi",
+    "30m1GfAeT",
+    "30m1GL5uW",
+    "30m1GYTTm",
+    "30m1GPbBP",
+    "30m1Gnj8Z",
+    "30m1GMiiM",
+    "30m1G5Pmz",
+    "30m1G84Nx",
+    "30m1G2Ags",
+    "30m1Gaf56",
+    "30m1GH6mL",
+    "30m1GGyp9",
+    "30m1GVtaz",
+    "30m1GrZsp",
+    "30m1G4y2d",
+    "30m1G4S4N",
+    "30m1GWpDA",
+    "30m1Gbgew",
+    "30m1GntxP",
+    "30m1GYdZx",
+    "30m1Gs9Xs",
+    "30m1G8NCr",
+    "30m1Gnyae",
+    "30m1GZwaX",
+    "30m1GDdYR",
+    "30m1G9R3A",
+    "30m1GUg2k",
+    "30m1GeYcK",
+    "30m1G2Se8",
+    "30m1GWBvB",
+    "30m1Gu4t2",
+    "30m1GKSSU",
+    "30m1GHe5t",
+    "30m1GEA3m",
+    "30m1GAPKF",
+    "30m1GcL8R",
+    "30m1G9G9n",
+    "30m1Gcyff",
+    "30m1G3Ywk",
+    "30m1G74Je",
+    "30m1GiHVL",
+    "30m1GX4iM",
+    "30m1GKNJY",
+    "30m1GR7rL",
+    "30m1GP5FD",
+    "30m1GEkfr",
+    "30m1GJba4",
+    "30m1G9k3s",
+    "30m1GBNs7",
+    "30m1GUzRG",
+    "30m1GLD46",
+    "30m1GcxCS",
+    "30m1GuJ9g",
+    "30m1Gf2k6",
+    "30m1GdbVs",
+    "30m1GKDMv",
+    "30m1GGfBp",
+    "30m1GT4e2",
+    "30m1GK8BN",
+    "30m1GYnfR",
+    "30m1GVWrs",
+    "30m1GMfm7",
+    "30m1GeWvf",
+    "30m1G4bpT",
+    "30m1GiAiM",
+    "30m1GmbfN",
+    "30m1GUvdH",
+    "30m1G2dsY",
+    "30m1GKiYT",
+    "30m1GsCBK",
+    "30m1Gj3PL",
+    "30m1GVWxj",
+    "30m1Gr3ut",
+    "30m1GdjLa",
+    "30m1GGAUK",
+    "30m1G4S9n",
+    "30m1Gen3x",
+    "30m1GMAbD",
+    "30m1GaKE8",
+    "30m1GrCRD",
+    "30m1Ggx35",
+    "30m1GUnP4",
+    "30m1GnVJp",
+    "30m1GCAKv",
+    "30m1GpLUb",
+    "30m1G4NKx",
+    "30m1G5ezb",
+    "30m1Gvpig",
+    "30m1GjaC2",
+    "30m1GsCzv",
+    "30m1GLaEi",
+    "30m1GEdXL",
+    "30m1GwN7a",
+    "30m1GkeeG",
+    "30m1Gr3Eu",
+    "30m1GfDvK",
+    "30m1GJpK6",
+    "30m1GdGG8",
+    "30m1GXueg",
+    "30m1GG7B6",
+    "30m1G8Lmr",
+    "30m1GEADp",
+    "30m1GDmpZ",
+    "30m1GJujp",
+    "30m1GTmwS",
+    "30m1GL7Wg",
+    "30m1GvfH6",
+    "30m1GHHps",
+    "30m1GPgM6",
+    "30m1GZDXz",
+    "30m1GniVB",
+    "30m1GptPR",
+    "30m1GSm6C",
+    "30m1GreXj",
+    "30m1GMivN",
+    "30m1GB4Wy",
+    "30m1Gxufx",
+    "30m1GsuJY",
+    "30m1Gwrpj",
+    "30m1GzJFX",
+    "30m1GpJcp",
+    "30m1GTERA",
+    "30m1GDg8X",
+    "30m1G3pmV",
+    "30m1GMj5P",
+    "30m1Grdhy",
+    "30m1GhFac",
+    "30m1Gnx2H",
+    "30m1GFziU",
+    "30m1GsdHi",
+    "30m1G4fjU",
+    "30m1GM6x7",
+    "30m1GPvss",
+    "30m1GZW5U",
+    "30m1Gnuc2",
+    "30m1GYrPw",
+    "30m1Gpn74",
+    "30m1GmZWB",
+    "30m1GZK8D",
+    "30m1GgaBD",
+    "30m1G2wMi",
+    "30m1GUPNp",
+    "30m1GPEKf",
+    "30m1GHbBP",
+    "30m1GpXJn",
+    "30m1GjKBH",
+    "30m1GGW6S",
+    "30m1GDdVd",
+    "30m1GGefe",
+    "30m1GKHtx",
+    "30m1Ge5G4",
+    "30m1Gt2wd",
+    "30m1GLyVW",
+    "30m1GxB4d",
+    "30m1GVuVm",
+    "30m1G7HaY",
+    "30m1GwPzn",
+    "30m1GwiwX",
+    "30m1Gstur",
+    "30m1GcStV",
+    "30m1GWCEz",
+    "30m1GJZKh",
+    "30m1GKg6M",
+    "30m1GCgtM",
+    "30m1GsyA9",
+    "30m1GzrZh",
+    "30m1G38dM",
+    "30m1Gk7tm",
+    "30m1G8hJY",
+    "30m1G4ZmB",
+    "30m1Gttay",
+    "30m1G8367",
+    "30m1GS7ZH",
+    "30m1GPxCe",
+    "30m1Gcm5U",
+    "30m1G92ky",
+    "30m1GgStV",
+    "30m1GBX76",
+    "30m1GtcLU",
+    "30m1GT52V",
+    "30m1GziG2",
+    "30m1GBnbT",
+    "30m1GN5Vz",
+    "30m1G4ZFE",
+    "30m1GiTzr",
+    "30m1G4V5L",
+    "30m1GyE7Z",
+    "30m1GUFwA",
+    "30m1G8xmz",
+    "30m1G37KD",
+    "30m1Gahdh",
+    "30m1GFrHi",
+    "30m1GWyLf",
+    "30m1GiBSH",
+    "30m1G2ps9",
+    "30m1GDUfu",
+    "30m1GwJHz",
+    "30m1GBXDF",
+    "30m1GDtx9",
+    "30m1Gg74i",
+    "30m1GNak4",
+    "30m1GHPpe",
+    "30m1GrfwG",
+    "30m1GAcXg",
+    "30m1GAwbj",
+    "30m1GUHwi",
+    "30m1GaRN4",
+    "30m1GWf8L",
+    "30m1GX8ZK",
+    "30m1GaJgS",
+    "30m1GaThV",
+    "30m1GRP6Y",
+    "30m1GSEdv",
+    "30m1GYEKt",
+    "30m1GETE4",
+    "30m1GF52c",
+    "30m1G3wpM",
+    "30m1GpXDx",
+    "30m1Gk4XD",
+    "30m1GFiGr",
+    "30m1GJA3m",
+    "30m1GYcYk",
+    "30m1G5ebV",
+    "30m1GFvRN",
+    "30m1GUkd5",
+    "30m1GyFWN",
+    "30m1G3buV",
+    "30m1GCFvV",
+    "30m1GmrbK",
+    "30m1GWBcW",
+    "30m1GfjkU",
+    "30m1Gkw3K",
+    "30m1GSJeF",
+    "30m1GgftB",
+    "30m1GsVDC",
+    "30m1G6TbE",
+    "30m1G8fRd",
+    "30m1G92k2",
+    "30m1GUisg",
+    "30m1Gx8rk",
+    "30m1GnNL3",
+    "30m1GBZkv",
+    "30m1GPxEA",
+    "30m1G7EgM",
+    "30m1GGGg4",
+    "30m1GUptN",
+    "30m1Gs7FH",
+    "30m1GBJyK",
+    "30m1GvvzY",
+    "30m1G5DGv",
+    "30m1Gg74i",
+    "30m1GNak4",
+    "30m1GHPpe",
+    "30m1GrfwG",
+    "30m1GAcXg",
+    "30m1GAwbj",
+    "30m1GUHwi",
+    "30m1GaRN4",
+    "30m1GWf8L",
+    "30m1GX8ZK",
+    "30m1GaJgS",
+    "30m1GaThV",
+    "30m1GRP6Y",
+    "30m1GSEdv",
+    "30m1GYEKt",
+    "30m1GETE4",
+    "30m1GF52c",
+    "30m1G3wpM",
+    "30m1GpXDx",
+    "30m1Gk4XD",
+    "30m1GFiGr",
+    "30m1GJA3m",
+    "30m1GYcYk",
+    "30m1G5ebV",
+    "30m1GFvRN",
+    "30m1GUkd5",
+    "30m1GyFWN",
+    "30m1G3buV",
+    "30m1GCFvV",
+    "30m1GmrbK",
+    "30m1GWBcW",
+    "30m1GfjkU",
+    "30m1Gkw3K",
+    "30m1GSJeF"
+  ]
+}

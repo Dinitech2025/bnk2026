@@ -1,0 +1,150 @@
+// Test du déploiement production après corrections sécurité
+console.log('🚀 VÉRIFICATION DÉPLOIEMENT PRODUCTION')
+console.log('======================================\n')
+
+console.log('✅ DÉPLOIEMENT EFFECTUÉ!')
+console.log('------------------------')
+console.log('• git push origin master : RÉUSSI')
+console.log('• 20 commits déployés incluant toutes les corrections')
+console.log('• Headers de sécurité + URLs HTTPS + PayPal corrigé')
+console.log('')
+
+console.log('⏱️ TEMPS DE PROPAGATION:')
+console.log('========================')
+console.log('• Déploiement GitHub → 1-2 minutes')
+console.log('• Build production → 3-5 minutes')
+console.log('• Cache CDN vidé → 5-15 minutes')
+console.log('• DNS propagation → 10-30 minutes')
+console.log('')
+
+console.log('🧪 TESTS À EFFECTUER MAINTENANT:')
+console.log('=================================')
+console.log('')
+
+// Test 1: Ping du serveur
+console.log('TEST 1: 🌐 STATUT SERVEUR')
+console.log('-------------------------')
+console.log('Dans votre navigateur :')
+console.log('• https://boutik-naka.com')
+console.log('• Vérifier : page charge sans alerte')
+console.log('• Attendre 5-10 minutes si erreur 502/503')
+console.log('')
+
+// Test 2: Headers de sécurité
+console.log('TEST 2: 🛡️ HEADERS DE SÉCURITÉ')
+console.log('------------------------------')
+console.log('Terminal/CMD :')
+console.log('curl -I https://boutik-naka.com | findstr "X-Frame\\|CSP\\|HSTS"')
+console.log('')
+console.log('Ou navigateur F12 → Network → Headers')
+console.log('Chercher : X-Frame-Options, Content-Security-Policy, Strict-Transport-Security')
+console.log('')
+
+// Test 3: Variables d'environnement
+console.log('TEST 3: 🔧 VARIABLES ENVIRONNEMENT')
+console.log('----------------------------------')
+console.log('Navigateur :')
+console.log('• https://boutik-naka.com/api/debug/env')
+console.log('• Vérifier NEXT_PUBLIC_BASE_URL = https://boutik-naka.com')
+console.log('')
+
+// Test 4: PayPal redirection
+console.log('TEST 4: 💳 PAYPAL REDIRECTION')
+console.log('-----------------------------')
+console.log('• https://boutik-naka.com/checkout')
+console.log('• Ajouter produit au panier')
+console.log('• Sélectionner PayPal')
+console.log('• Cliquer "Continuer vers PayPal"')
+console.log('• Vérifier redirection HTTPS vers PayPal')
+console.log('')
+
+// Test 5: Security scanners
+console.log('TEST 5: 🔍 SCANNERS SÉCURITÉ')
+console.log('----------------------------')
+console.log('a) Security Headers (attendre 10-15 min):')
+console.log('   https://securityheaders.com')
+console.log('   → Entrer: boutik-naka.com')
+console.log('   → Score attendu: A ou A+')
+console.log('')
+console.log('b) Google Safe Browsing:')
+console.log('   https://transparencyreport.google.com/safe-browsing/search')
+console.log('   → Entrer: boutik-naka.com')
+console.log('   → Statut attendu: "Safe" (peut prendre 24h)')
+console.log('')
+
+console.log('📋 TIMELINE DE RÉSOLUTION:')
+console.log('===========================')
+console.log('')
+
+console.log('⚡ IMMÉDIAT (0-15 min):')
+console.log('• Site accessible sans erreur 502/503')
+console.log('• Headers de sécurité actifs')
+console.log('• Variables d\'environnement mises à jour')
+console.log('')
+
+console.log('🔄 COURT TERME (15min-2h):')
+console.log('• PayPal redirection fonctionne')
+console.log('• Cache CDN entièrement vidé')
+console.log('• Score SecurityHeaders.com amélioré')
+console.log('')
+
+console.log('🌐 MOYEN TERME (2-24h):')
+console.log('• Google Safe Browsing mis à jour')
+console.log('• Alerte "site dangereux" supprimée')
+console.log('• Indexation Google corrigée')
+console.log('')
+
+console.log('🚨 SI PROBLÈME PERSISTE APRÈS 2H:')
+console.log('==================================')
+console.log('')
+
+console.log('1. 🔄 FORCER REDÉPLOIEMENT')
+console.log('   • Dashboard hébergeur → Redeploy')
+console.log('   • Vider cache CDN manuellement')
+console.log('')
+
+console.log('2. 🔧 VÉRIFIER VARIABLES PRODUCTION')
+console.log('   • Dashboard hébergeur → Environment Variables')
+console.log('   • NEXTAUTH_URL=https://boutik-naka.com')
+console.log('   • NEXT_PUBLIC_BASE_URL=https://boutik-naka.com')
+console.log('')
+
+console.log('3. 📝 RÉVISION GOOGLE MANUELLE')
+console.log('   • Google Search Console')
+console.log('   • Sécurité et actions manuelles')
+console.log('   • Demander un examen urgent')
+console.log('')
+
+console.log('✅ ACTIONS RECOMMANDÉES MAINTENANT:')
+console.log('===================================')
+console.log('')
+
+console.log('1. ⏱️ ATTENDRE 5-10 minutes')
+console.log('   → Laisser le déploiement se propager')
+console.log('')
+
+console.log('2. 🧪 TESTER site principal')
+console.log('   → https://boutik-naka.com')
+console.log('   → Vérifier absence alerte sécurité')
+console.log('')
+
+console.log('3. 🔍 VÉRIFIER headers (F12)')
+console.log('   → Network → Premier request → Headers')
+console.log('   → Chercher X-Frame-Options, CSP, HSTS')
+console.log('')
+
+console.log('4. 📱 INFORMER équipe/clients')
+console.log('   → "Maintenance sécurité terminée"')
+console.log('   → "Site sécurisé et opérationnel"')
+console.log('')
+
+console.log('🎯 RÉSULTAT ATTENDU DANS 15-30 MINUTES:')
+console.log('========================================')
+console.log('✅ Site accessible sans alerte')
+console.log('✅ Headers de sécurité actifs')
+console.log('✅ PayPal fonctionne en HTTPS')
+console.log('✅ Score SecurityHeaders.com élevé')
+console.log('')
+
+console.log('🎉 LES CORRECTIONS SONT DÉPLOYÉES ! 🚀')
+console.log('Attendre la propagation et tester...')

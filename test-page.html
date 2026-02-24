@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API Produits</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .product { border: 1px solid #ccc; margin: 10px 0; padding: 10px; }
+        .loading { color: blue; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Test API Produits</h1>
+    <div id="status" class="loading">Chargement...</div>
+    <div id="results"></div>
+
+    <script>
+        async function testAPI() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+            
+            try {
+                console.log('🔄 Fetching products...');
+                statusDiv.textContent = 'Récupération des produits...';
+                
+                const response = await fetch('/api/admin/products');
+                console.log('📡 Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`Erreur ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('📦 Data received:', data);
+                
+                const products = data.products || [];
+                console.log('📊 Number of products:', products.length);
+                
+                statusDiv.textContent = `✅ ${products.length} produits trouvés`;
+                statusDiv.className = 'success';
+                
+                if (products.length === 0) {
+                    resultsDiv.innerHTML = '<p>Aucun produit trouvé</p>';
+                } else {
+                    resultsDiv.innerHTML = products.map(product => `
+                        <div class="product">
+                            <h3>${product.name}</h3>
+                            <p><strong>SKU:</strong> ${product.sku || 'N/A'}</p>
+                            <p><strong>Prix:</strong> ${product.price} FCFA</p>
+                            <p><strong>Stock:</strong> ${product.totalInventory}</p>
+                            <p><strong>Publié:</strong> ${product.published ? 'Oui' : 'Non'}</p>
+                            <p><strong>Catégorie:</strong> ${product.category?.name || 'Aucune'}</p>
+                        </div>
+                    `).join('');
+                }
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                statusDiv.textContent = `❌ Erreur: ${error.message}`;
+                statusDiv.className = 'error';
+            }
+        }
+        
+        // Lancer le test au chargement de la page
+        testAPI();
+    </script>
+</body>
+</html> 

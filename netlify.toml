@@ -1,0 +1,35 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20.16.0"
+  NEXT_TELEMETRY_DISABLED = "1"
+  PRISMA_FORCE_GENERATION = "true"
+  NEXT_PHASE = "phase-production-build"
+  # Désactiver le scan de secrets pour les fichiers de build
+  SECRETS_SCAN_OMIT_PATHS = ".next/*,node_modules/*"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Configuration pour Prisma Studio
+[[redirects]]
+  from = "/studio/*"
+  to = "http://localhost:5555/:splat"
+  status = 200
+  force = true
+  conditions = {Role = ["admin"]}
+
+# Cache configuration
+[[plugins]]
+  package = "netlify-plugin-cache"
+  [plugins.inputs]
+    paths = [
+      "node_modules/.cache",
+      ".next/cache",
+      "prisma/migrations"
+    ]
+
+# Configuration optimisée pour réduire les logs en double
+# Les commandes de lifecycle sont dépréciées et supprimées 

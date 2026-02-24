@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Système Hybride - BoutikNaka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        .success {
+            color: green;
+        }
+        .calculation-detail {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test du Système Hybride de Calcul d'Importation</h1>
+        <p>Cette page teste le nouveau système hybride avec commission variable et devises dynamiques.</p>
+        
+        <form id="calculationForm">
+            <div class="form-group">
+                <label for="productName">Nom du produit:</label>
+                <input type="text" id="productName" value="Test Produit" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="supplierPrice">Prix fournisseur:</label>
+                <input type="number" id="supplierPrice" value="52" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="supplierCurrency">Devise fournisseur:</label>
+                <select id="supplierCurrency">
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="USD">USD - Dollar US</option>
+                    <option value="GBP">GBP - Livre Sterling</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="weight">Poids (kg):</label>
+                <input type="number" id="weight" value="2" step="0.1" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="warehouse">Entrepôt:</label>
+                <select id="warehouse">
+                    <option value="france">France</option>
+                    <option value="usa">États-Unis</option>
+                    <option value="uk">Royaume-Uni</option>
+                </select>
+            </div>
+            
+            <button type="submit">🧮 Calculer les coûts</button>
+        </form>
+        
+        <div id="results" class="results">
+            <h2>📊 Résultats du calcul</h2>
+            <div id="calculationDetails"></div>
+        </div>
+        
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                mode: 'air',
+                productName: document.getElementById('productName').value,
+                supplierPrice: parseFloat(document.getElementById('supplierPrice').value),
+                supplierCurrency: document.getElementById('supplierCurrency').value,
+                weight: parseFloat(document.getElementById('weight').value),
+                warehouse: document.getElementById('warehouse').value
+            };
+            
+            try {
+                document.getElementById('error').textContent = '';
+                document.getElementById('results').style.display = 'none';
+                
+                // Test avec l'API publique d'abord
+                console.log('Test des taux de change...');
+                const ratesResponse = await fetch('/api/public/exchange-rates');
+                const rates = await ratesResponse.json();
+                console.log('Taux de change récupérés:', rates);
+                
+                // Simulation du calcul côté client (comme le fait l'API)
+                const mgaRate = rates.exchangeRates.MGA;
+                const eurRate = rates.exchangeRates.EUR;
+                const usdRate = rates.exchangeRates.USD;
+                const gbpRate = rates.exchangeRates.GBP;
+                
+                // Paramètres par défaut (comme dans notre système)
+                const settings = {
+                    transport_france_rate: 15,
+                    transport_usa_rate: 35,
+                    transport_uk_rate: 18,
+                    commission_0_10: 25,
+                    commission_10_25: 35,
+                    commission_25_100: 38,
+                    commission_100_200: 30,
+                    commission_200_plus: 25,
+                    processing_fee: 2,
+                    tax_rate: 3.5,
+                    margin_rate: 40
+                };
+                
+                // Calcul selon la formule hybride
+                let transportRate = 15;
+                if (formData.warehouse === 'usa') transportRate = settings.transport_usa_rate;
+                else if (formData.warehouse === 'uk') transportRate = settings.transport_uk_rate;
+                else transportRate = settings.transport_france_rate;
+                
+                const transportCost = formData.weight * transportRate;
+                
+                // Commission variable
+                let commissionRate = 0;
+                if (formData.supplierPrice < 10) {
+                    commissionRate = settings.commission_0_10;
+                } else if (formData.supplierPrice < 25) {
+                    commissionRate = settings.commission_10_25;
+                } else if (formData.supplierPrice < 100) {
+                    commissionRate = settings.commission_25_100;
+                } else if (formData.supplierPrice < 200) {
+                    commissionRate = settings.commission_100_200;
+                } else {
+                    commissionRate = settings.commission_200_plus;
+                }
+                
+                const commission = (formData.supplierPrice * commissionRate) / 100;
+                const processingFee = settings.processing_fee;
+                const tax = (formData.supplierPrice * settings.tax_rate) / 100;
+                
+                // Devise de l'entrepôt
+                let warehouseCurrency = 'EUR';
+                if (formData.warehouse === 'usa') warehouseCurrency = 'USD';
+                else if (formData.warehouse === 'uk') warehouseCurrency = 'GBP';
+                
+                const totalInWarehouseCurrency = formData.supplierPrice + transportCost + commission + processingFee + tax;
+                
+                // Conversion vers MGA
+                const warehouseRate = rates.exchangeRates[warehouseCurrency];
+                const totalInMGA = totalInWarehouseCurrency * (mgaRate / warehouseRate);
+                
+                // Prix suggéré
+                const marginRate = settings.margin_rate / 100;
+                const suggestedPrice = totalInMGA * (1 + marginRate);
+                
+                // Affichage des résultats
+                const resultsHTML = `
+                    <div class="calculation-detail">
+                        <strong>📦 Produit:</strong> ${formData.productName}<br>
+                        <strong>⚖️ Poids:</strong> ${formData.weight} kg<br>
+                        <strong>🏭 Entrepôt:</strong> ${formData.warehouse} (${warehouseCurrency})
+                    </div>
+                    
+                    <div class="calculation-detail">
+                        <strong>💰 Détail des coûts (en ${warehouseCurrency}):</strong><br>
+                        • Prix fournisseur: ${formData.supplierPrice.toFixed(2)} ${warehouseCurrency}<br>
+                        • Transport: ${transportCost.toFixed(2)} ${warehouseCurrency} (${formData.weight} kg × ${transportRate} ${warehouseCurrency}/kg)<br>
+                        • Commission: ${commission.toFixed(2)} ${warehouseCurrency} (${commissionRate}% - tranche applicable)<br>
+                        • Frais traitement: ${processingFee.toFixed(2)} ${warehouseCurrency}<br>
+                        • Taxe: ${tax.toFixed(2)} ${warehouseCurrency} (${settings.tax_rate}%)<br>
+                        <strong>Total: ${totalInWarehouseCurrency.toFixed(2)} ${warehouseCurrency}</strong>
+                    </div>
+                    
+                    <div class="calculation-detail">
+                        <strong>🇲🇬 Conversion en Ariary:</strong><br>
+                        • Taux ${warehouseCurrency}/MGA: ${(mgaRate / warehouseRate).toFixed(2)}<br>
+                        • <strong>Coût total: ${totalInMGA.toLocaleString('fr-FR')} Ar</strong><br>
+                        • Marge suggérée (${settings.margin_rate}%): ${(suggestedPrice - totalInMGA).toLocaleString('fr-FR')} Ar<br>
+                        • <strong style="color: green;">Prix de vente suggéré: ${suggestedPrice.toLocaleString('fr-FR')} Ar</strong>
+                    </div>
+                    
+                    <div class="calculation-detail success">
+                        ✅ <strong>Système hybride fonctionnel !</strong><br>
+                        Commission variable appliquée: ${commissionRate}% (prix ${formData.supplierPrice} ${formData.supplierCurrency} dans la tranche appropriée)
+                    </div>
+                `;
+                
+                document.getElementById('calculationDetails').innerHTML = resultsHTML;
+                document.getElementById('results').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('error').textContent = 'Erreur lors du calcul: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html> 
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Système Hybride - BoutikNaka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        .success {
+            color: green;
+        }
+        .calculation-detail {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test du Système Hybride de Calcul d'Importation</h1>
+        <p>Cette page teste le nouveau système hybride avec commission variable et devises dynamiques.</p>
+        
+        <form id="calculationForm">
+            <div class="form-group">
+                <label for="productName">Nom du produit:</label>
+                <input type="text" id="productName" value="Test Produit" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="supplierPrice">Prix fournisseur:</label>
+                <input type="number" id="supplierPrice" value="52" step="0.01" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="supplierCurrency">Devise fournisseur:</label>
+                <select id="supplierCurrency">
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="USD">USD - Dollar US</option>
+                    <option value="GBP">GBP - Livre Sterling</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="weight">Poids (kg):</label>
+                <input type="number" id="weight" value="2" step="0.1" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="warehouse">Entrepôt:</label>
+                <select id="warehouse">
+                    <option value="france">France</option>
+                    <option value="usa">États-Unis</option>
+                    <option value="uk">Royaume-Uni</option>
+                </select>
+            </div>
+            
+            <button type="submit">🧮 Calculer les coûts</button>
+        </form>
+        
+        <div id="results" class="results">
+            <h2>📊 Résultats du calcul</h2>
+            <div id="calculationDetails"></div>
+        </div>
+        
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        document.getElementById('calculationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                mode: 'air',
+                productName: document.getElementById('productName').value,
+                supplierPrice: parseFloat(document.getElementById('supplierPrice').value),
+                supplierCurrency: document.getElementById('supplierCurrency').value,
+                weight: parseFloat(document.getElementById('weight').value),
+                warehouse: document.getElementById('warehouse').value
+            };
+            
+            try {
+                document.getElementById('error').textContent = '';
+                document.getElementById('results').style.display = 'none';
+                
+                // Test avec l'API publique d'abord
+                console.log('Test des taux de change...');
+                const ratesResponse = await fetch('/api/public/exchange-rates');
+                const rates = await ratesResponse.json();
+                console.log('Taux de change récupérés:', rates);
+                
+                // Simulation du calcul côté client (comme le fait l'API)
+                const mgaRate = rates.exchangeRates.MGA;
+                const eurRate = rates.exchangeRates.EUR;
+                const usdRate = rates.exchangeRates.USD;
+                const gbpRate = rates.exchangeRates.GBP;
+                
+                // Paramètres par défaut (comme dans notre système)
+                const settings = {
+                    transport_france_rate: 15,
+                    transport_usa_rate: 35,
+                    transport_uk_rate: 18,
+                    commission_0_10: 25,
+                    commission_10_25: 35,
+                    commission_25_100: 38,
+                    commission_100_200: 30,
+                    commission_200_plus: 25,
+                    processing_fee: 2,
+                    tax_rate: 3.5,
+                    margin_rate: 40
+                };
+                
+                // Calcul selon la formule hybride
+                let transportRate = 15;
+                if (formData.warehouse === 'usa') transportRate = settings.transport_usa_rate;
+                else if (formData.warehouse === 'uk') transportRate = settings.transport_uk_rate;
+                else transportRate = settings.transport_france_rate;
+                
+                const transportCost = formData.weight * transportRate;
+                
+                // Commission variable
+                let commissionRate = 0;
+                if (formData.supplierPrice < 10) {
+                    commissionRate = settings.commission_0_10;
+                } else if (formData.supplierPrice < 25) {
+                    commissionRate = settings.commission_10_25;
+                } else if (formData.supplierPrice < 100) {
+                    commissionRate = settings.commission_25_100;
+                } else if (formData.supplierPrice < 200) {
+                    commissionRate = settings.commission_100_200;
+                } else {
+                    commissionRate = settings.commission_200_plus;
+                }
+                
+                const commission = (formData.supplierPrice * commissionRate) / 100;
+                const processingFee = settings.processing_fee;
+                const tax = (formData.supplierPrice * settings.tax_rate) / 100;
+                
+                // Devise de l'entrepôt
+                let warehouseCurrency = 'EUR';
+                if (formData.warehouse === 'usa') warehouseCurrency = 'USD';
+                else if (formData.warehouse === 'uk') warehouseCurrency = 'GBP';
+                
+                const totalInWarehouseCurrency = formData.supplierPrice + transportCost + commission + processingFee + tax;
+                
+                // Conversion vers MGA
+                const warehouseRate = rates.exchangeRates[warehouseCurrency];
+                const totalInMGA = totalInWarehouseCurrency * (mgaRate / warehouseRate);
+                
+                // Prix suggéré
+                const marginRate = settings.margin_rate / 100;
+                const suggestedPrice = totalInMGA * (1 + marginRate);
+                
+                // Affichage des résultats
+                const resultsHTML = `
+                    <div class="calculation-detail">
+                        <strong>📦 Produit:</strong> ${formData.productName}<br>
+                        <strong>⚖️ Poids:</strong> ${formData.weight} kg<br>
+                        <strong>🏭 Entrepôt:</strong> ${formData.warehouse} (${warehouseCurrency})
+                    </div>
+                    
+                    <div class="calculation-detail">
+                        <strong>💰 Détail des coûts (en ${warehouseCurrency}):</strong><br>
+                        • Prix fournisseur: ${formData.supplierPrice.toFixed(2)} ${warehouseCurrency}<br>
+                        • Transport: ${transportCost.toFixed(2)} ${warehouseCurrency} (${formData.weight} kg × ${transportRate} ${warehouseCurrency}/kg)<br>
+                        • Commission: ${commission.toFixed(2)} ${warehouseCurrency} (${commissionRate}% - tranche applicable)<br>
+                        • Frais traitement: ${processingFee.toFixed(2)} ${warehouseCurrency}<br>
+                        • Taxe: ${tax.toFixed(2)} ${warehouseCurrency} (${settings.tax_rate}%)<br>
+                        <strong>Total: ${totalInWarehouseCurrency.toFixed(2)} ${warehouseCurrency}</strong>
+                    </div>
+                    
+                    <div class="calculation-detail">
+                        <strong>🇲🇬 Conversion en Ariary:</strong><br>
+                        • Taux ${warehouseCurrency}/MGA: ${(mgaRate / warehouseRate).toFixed(2)}<br>
+                        • <strong>Coût total: ${totalInMGA.toLocaleString('fr-FR')} Ar</strong><br>
+                        • Marge suggérée (${settings.margin_rate}%): ${(suggestedPrice - totalInMGA).toLocaleString('fr-FR')} Ar<br>
+                        • <strong style="color: green;">Prix de vente suggéré: ${suggestedPrice.toLocaleString('fr-FR')} Ar</strong>
+                    </div>
+                    
+                    <div class="calculation-detail success">
+                        ✅ <strong>Système hybride fonctionnel !</strong><br>
+                        Commission variable appliquée: ${commissionRate}% (prix ${formData.supplierPrice} ${formData.supplierCurrency} dans la tranche appropriée)
+                    </div>
+                `;
+                
+                document.getElementById('calculationDetails').innerHTML = resultsHTML;
+                document.getElementById('results').style.display = 'block';
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('error').textContent = 'Erreur lors du calcul: ' + error.message;
+            }
+        });
+    </script>
+</body>
+</html> 

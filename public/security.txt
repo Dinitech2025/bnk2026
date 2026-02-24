@@ -1,0 +1,20 @@
+Contact: security@boutik-naka.com
+Preferred-Languages: fr, en
+Canonical: https://boutik-naka.com/.well-known/security.txt
+Policy: https://boutik-naka.com/security-policy
+Hiring: https://boutik-naka.com/careers
+
+# Politique de divulgation responsable des vulnérabilités
+# Responsible Vulnerability Disclosure Policy
+
+# FR: Si vous découvrez une vulnérabilité de sécurité, veuillez nous contacter de manière responsable
+# EN: If you discover a security vulnerability, please contact us responsibly
+
+# Merci de ne pas divulguer publiquement jusqu'à ce que nous ayons eu l'occasion de corriger le problème
+# Please do not disclose publicly until we have had a chance to fix the issue
+
+# Récompenses possibles pour les rapports de vulnérabilité valides
+# Possible rewards for valid vulnerability reports
+
+# Boutik Naka - Plateforme e-commerce sécurisée
+# Dernière mise à jour: 2024-08-28

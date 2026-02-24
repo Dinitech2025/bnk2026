@@ -1,0 +1,40 @@
+'use client';
+
+// ... Garder tous les imports et interfaces existants ...
+
+export function OrderForm({ users, products, services, offers, initialData }: OrderFormProps) {
+  // ... Garder tout le contenu de OrderForm ...
+}
+
+function SubscriptionProfilesModal({
+  isOpen,
+  onClose,
+  offer,
+  onConfirm
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  offer: Offer | null;
+  onConfirm: (data: PlatformAccountsData[]) => void;
+}) {
+  // ... Garder tout le contenu de SubscriptionProfilesModal ...
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl h-4/5 overflow-y-auto">
+        {/* ... Garder tout le contenu du DialogContent ... */}
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose}>
+            Annuler
+          </Button>
+          <Button 
+            onClick={handleConfirm}
+            disabled={!isConfigValid() || isLoading}
+          >
+            Confirmer
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+} 
+ 
